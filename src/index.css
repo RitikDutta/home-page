@@ -1,3 +1,10 @@
+/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Optional: Add global base styles here if needed */
+body {
+  /* You might set default background/text colors here later,
+     but the Portfolio component sets it too */
+}
