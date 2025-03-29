@@ -335,7 +335,7 @@ function HeroRedesignedFixed() {
           <div className="hero-image-container w-full max-w-[150px] sm:max-w-[260px] md:max-w-none aspect-[3/4] overflow-hidden rounded-lg shadow-lg">
             <img
               ref={imageRef}
-              src="/me.jpeg"
+              src="/home-page/me.jpeg"
               alt="Ritik Dutta"
               className="w-full h-full object-cover opacity-0 transform-gpu"
             />
@@ -531,7 +531,7 @@ function Projects() {
   const projectsData = [
     { 
       title: "Company Work Environment Management System", 
-      img: "/project_company_management.gif", 
+      img: "/home-page/project_company_management.gif", 
       description: "This project aims to use facial recognition technology to monitor employee productivity and track specific activities in the workplace.", 
       liveLink: "https://cwem.site/", 
       codeLink: "https://github.com/RitikDutta/Company-work-environment-management", 
@@ -539,7 +539,7 @@ function Projects() {
     },
     { 
       title: "Datamigrato", 
-      img: "/project_datamigrato.gif", 
+      img: "/home-page/project_datamigrato.gif", 
       description: "Datamigrato: Simplifying complex data migrations. Versatile Python package for seamless transfer across databases. Effortlessly streamline your backend operations.", 
       liveLink: "https://pypi.org/project/datamigrato/", 
       codeLink: "https://github.com/RitikDutta/datamigrato", 
@@ -547,7 +547,7 @@ function Projects() {
     },
     { 
       title: "Interview Ready", 
-      img: "/project_interview_ready.png", 
+      img: "/home-page/project_interview_ready.png", 
       description: "Generative AI-based Interview Coach: Revolutionize your interview preparation with our AI-Powered Mock Interview Platform. Experience realistic interview simulations tailored to a wide range of professional fields—from IT and business management to psychology and civil services. Enhance your preparation with our dynamic user profile system, featuring secure authentication and efficient session management. Personalize your practice sessions by selecting interviewers based on gender, language preferences (English or Hindi), and specific career domains. Gain invaluable insights through instant feedback, track your progress with quantifiable scoring, and prepare for real-world scenarios by engaging in mock interviews that replicate actual job interview experiences in your chosen field.", 
       liveLink: "https://ritikdutta.com/interview", 
       codeLink: "https://github.com/RitikDutta/Interview_mentor", 
@@ -555,7 +555,7 @@ function Projects() {
     },
     { 
       title: "Inventory Management Chatbot", 
-      img: "/project_food_chatbot.gif", 
+      img: "/home-page/project_food_chatbot.gif", 
       description: "This advanced chatbot streamlines inventory management and sales tracking, offering real-time insights into customer orders and popular items, enabling efficient inventory adjustments based on monthly sales trends.", 
       liveLink: "https://bot.dialogflow.com/food2bot", 
       codeLink: "https://github.com/RitikDutta/Food-Divilery-chatbot", 
@@ -563,7 +563,7 @@ function Projects() {
     },
     { 
       title: "Raaga Rhythms", 
-      img: "/project_raaga_rhythm.jpg", 
+      img: "/home-page/project_raaga_rhythm.jpg", 
       description: "Immerse in the melodious realms of Indian classical music, where each raga unfolds a unique story. Delve into the harmony of tradition through symphonic streams and full insights on each song, echoing the soulful rhythm of timeless ragas.", 
       liveLink: "https://ritikdutta.github.io/RaagaRhythms/", 
       codeLink: "https://github.com/RitikDutta/RaagaRhythms", 
@@ -571,7 +571,7 @@ function Projects() {
     },
     { 
       title: "Generative Cosmos Explorer", 
-      img: "/project_company_management.gif", 
+      img: "/home-page/project_company_management.gif", 
       description: "An interactive web app allowing users to tweak parameters and algorithms, generating unique, abstract visuals inspired by space and natural phenomena.", 
       liveLink: "#", 
       codeLink: "#", 
@@ -773,11 +773,11 @@ function Community() {
   const setupMarqueeRef = useRef(null);
 
   const images = [
-    { img: "/social_impact_food_drive.jpeg", heading: "Food Drive", description: "As a committed volunteer, I've had the honor of serving our community, especially on meaningful days like Independence Day. I spearheaded food drives, collecting staples like rice, daals, and aata, and distributed them to needy families in neighboring villages, fostering a shared sense of nourishment and hope in our celebrations.", date: "Oct 2023" },
-    { img: "/social_impact_food_drive_2.jpeg", heading: "Food Drive", description: "Sharing Meals, Spreading Hope: As the volunteer in the blue shirt, I've experienced the joy of serving meals and smiles to children in need. Each plate is a blend of kindness and compassion, a belief in a brighter future for every child. Together, let's take steps towards eradicating hunger, one meal at a time.", date: "Nov 2023" },
-    { img: "/social_impact_plantation.jpeg", heading: "Plantation Drive", description: "Planting Tomorrow: As an Environmental Conservation Volunteer, I embrace the role of Earth's steward, nurturing the future with each tree planted. Each sapling signifies hope, a step towards ecological restoration and a legacy for the coming generations. Together, we stand as guardians of nature's splendor, weaving our efforts into the tapestry of Earth's well-being.", date: "Mar 2024" },
-    { img: "/social_impact_food_drive_3.jpeg", heading: "Food Drive", description: "Cultivating Futures: Each meal I serve as a Food Assistance Volunteer brings hope and nourishment to underprivileged children. Beyond sustenance, it's a gesture of kindness and a step towards a world where no child goes hungry. Join in this journey of compassion, one meal at a time.", date: "May 2024" },
-    { img: "/social_impact_3.jpeg", heading: "Community Impact", description: "Making a difference in the community.", date: "Jun 2024" },
+    { img: "/home-page/social_impact_food_drive.jpeg", heading: "Food Drive", description: "As a committed volunteer, I've had the honor of serving our community, especially on meaningful days like Independence Day. I spearheaded food drives, collecting staples like rice, daals, and aata, and distributed them to needy families in neighboring villages, fostering a shared sense of nourishment and hope in our celebrations.", date: "Oct 2023" },
+    { img: "/home-page/social_impact_food_drive_2.jpeg", heading: "Food Drive", description: "Sharing Meals, Spreading Hope: As the volunteer in the blue shirt, I've experienced the joy of serving meals and smiles to children in need. Each plate is a blend of kindness and compassion, a belief in a brighter future for every child. Together, let's take steps towards eradicating hunger, one meal at a time.", date: "Nov 2023" },
+    { img: "/home-page/social_impact_plantation.jpeg", heading: "Plantation Drive", description: "Planting Tomorrow: As an Environmental Conservation Volunteer, I embrace the role of Earth's steward, nurturing the future with each tree planted. Each sapling signifies hope, a step towards ecological restoration and a legacy for the coming generations. Together, we stand as guardians of nature's splendor, weaving our efforts into the tapestry of Earth's well-being.", date: "Mar 2024" },
+    { img: "/home-page/social_impact_food_drive_3.jpeg", heading: "Food Drive", description: "Cultivating Futures: Each meal I serve as a Food Assistance Volunteer brings hope and nourishment to underprivileged children. Beyond sustenance, it's a gesture of kindness and a step towards a world where no child goes hungry. Join in this journey of compassion, one meal at a time.", date: "May 2024" },
+    { img: "/home-page/social_impact_3.jpeg", heading: "Community Impact", description: "Making a difference in the community.", date: "Jun 2024" },
   ];
   const fullList = [...images, ...images]; // Duplicate for seamless loop
 
@@ -949,42 +949,42 @@ function Blogs() {
     { 
       title: "AlexNet in a Nutshell", 
       date: "May 2020", 
-      img: "/blog_alexnet.png", 
+      img: "/home-page/blog_alexnet.png", 
       snippet: "AlexNet was trained on ImageNet datasets consists of 1.2 million data(images) which contains 1000 different classes having 60 million parameters and 650000 neurons consist of 5 convolutional layers", 
       link: "https://medium.com/analytics-vidhya/alexnet-in-a-nutshell-4a9445e92d6d?source=user_profile---------3----------------------------" 
     },
     { 
       title: "LeNet in a nutshell", 
       date: "May 2020", 
-      img: "/blog_lenet.jpg", 
+      img: "/home-page/blog_lenet.jpg", 
       snippet: "How LeNet works, Architecture, how to train model using LeNet architecture on keras and also how to design a better model than LeNet using same architecture but with different activation, loss functions etc, and compare the accuracy of new LeNet and original LeNet model.", 
       link: "https://medium.com/@ritikduttagd/lenet-in-a-nutshell-2303330cc7db?source=user_profile---------4----------------------------" 
     },
     { 
       title: "Principal Component Analysis(PCA) in a Nutshell", 
       date: "Nov 2022", 
-      img: "/blog_pca.png", 
+      img: "/home-page/blog_pca.png", 
       snippet: "With increase in dimensions(like 100's/features) leads to problems like: Time Complexity increases, Difficult to generalize relations, All the time all features are not going to contribute, Hard to find shape of data", 
       link: "https://medium.com/@ritikduttagd/principal-component-analysis-pca-in-a-nutshell-6e422e1bb529?source=user_profile---------2----------------------------" 
     },
     { 
       title: "K-means in a Nutshell", 
       date: "Nov 2022", 
-      img: "/blog_kmeans.png", 
+      img: "/home-page/blog_kmeans.png", 
       snippet: "The K-means clustering algorithm computes centroids and repeats until the optimal centroid is found. It is presumptively known how many clusters there are. It is also known as the flat clustering algorithm.", 
       link: "https://medium.com/@ritikduttagd/k-means-in-a-nutshell-6d06c7a78ff7?source=user_profile---------1----------------------------" 
     },
     { 
       title: "Project Management", 
       date: "Dec 2022", 
-      img: "/blog_project_management.png", 
+      img: "/home-page/blog_project_management.png", 
       snippet: "A data science project is the most important aspect of a data scientist's work. It is the culmination of all their work and efforts. The structure for a data science project should be set up in such a way that it can be easily followed by other team members.", 
       link: "https://medium.com/@ritikduttagd/master-the-art-of-data-science-and-launch-a-top-notch-project-today-4075f46f9dfe?source=user_profile---------0----------------------------" 
     },
     { 
       title: "Animating Interfaces with GSAP & React", 
       date: "Feb 2024", 
-      img: "/blog_project_management.png", 
+      img: "/home-page/blog_project_management.png", 
       snippet: "Leveraging GreenSock (GSAP) within React to create fluid, engaging user experiences.", 
       link: "#" 
     },
