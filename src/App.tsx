@@ -2,7 +2,6 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SpeedInsights } from "@vercel/speed-insights/react"
 
 // Ensure Tailwind CSS is set up and fonts are imported in your project's main CSS/index file
 // Example:
