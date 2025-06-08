@@ -533,7 +533,7 @@ function Projects() {
       title: "Company Work Environment Management System", 
       img: "/project_company_management.gif", 
       description: "This project aims to use facial recognition technology to monitor employee productivity and track specific activities in the workplace.", 
-      liveLink: "https://cwem.site/", 
+      liveLink: "https://cwem.space/", 
       codeLink: "https://github.com/RitikDutta/Company-work-environment-management", 
       tags: ["Computer Vision", "Python", "OpenCV", "Data Analytics", "UX Psychology"] 
     },
@@ -549,7 +549,7 @@ function Projects() {
       title: "Interview Ready", 
       img: "/project_interview_ready.png", 
       description: "Generative AI-based Interview Coach: Revolutionize your interview preparation with our AI-Powered Mock Interview Platform. Experience realistic interview simulations tailored to a wide range of professional fields—from IT and business management to psychology and civil services. Enhance your preparation with our dynamic user profile system, featuring secure authentication and efficient session management. Personalize your practice sessions by selecting interviewers based on gender, language preferences (English or Hindi), and specific career domains. Gain invaluable insights through instant feedback, track your progress with quantifiable scoring, and prepare for real-world scenarios by engaging in mock interviews that replicate actual job interview experiences in your chosen field.", 
-      liveLink: "https://ritikdutta.com/interview", 
+      liveLink: "https://irready.site/", 
       codeLink: "https://github.com/RitikDutta/Interview_mentor", 
       tags: ["Generative AI", "LLM", "React", "Node.js", "NLP", "Psychology"] 
     },
@@ -569,14 +569,14 @@ function Projects() {
       codeLink: "https://github.com/RitikDutta/RaagaRhythms", 
       tags: ["Web Dev", "Music Tech", "React", "GSAP", "Data Viz", "Creative Coding"] 
     },
-    { 
-      title: "Generative Cosmos Explorer", 
-      img: "/project_company_management.gif", 
-      description: "An interactive web app allowing users to tweak parameters and algorithms, generating unique, abstract visuals inspired by space and natural phenomena.", 
-      liveLink: "#", 
-      codeLink: "#", 
-      tags: ["Creative Coding", "JavaScript", "p5.js", "Generative Art", "UI/UX", "Space"] 
-    },
+    // { 
+    //   title: "Generative Cosmos Explorer", 
+    //   img: "/project_company_management.gif", 
+    //   description: "An interactive web app allowing users to tweak parameters and algorithms, generating unique, abstract visuals inspired by space and natural phenomena.", 
+    //   liveLink: "#", 
+    //   codeLink: "#", 
+    //   tags: ["Creative Coding", "JavaScript", "p5.js", "Generative Art", "UI/UX", "Space"] 
+    // },
   ];
 
   useEffect(() => {
@@ -981,13 +981,13 @@ function Blogs() {
       snippet: "A data science project is the most important aspect of a data scientist's work. It is the culmination of all their work and efforts. The structure for a data science project should be set up in such a way that it can be easily followed by other team members.", 
       link: "https://medium.com/@ritikduttagd/master-the-art-of-data-science-and-launch-a-top-notch-project-today-4075f46f9dfe?source=user_profile---------0----------------------------" 
     },
-    { 
-      title: "Animating Interfaces with GSAP & React", 
-      date: "Feb 2024", 
-      img: "/blog_project_management.png", 
-      snippet: "Leveraging GreenSock (GSAP) within React to create fluid, engaging user experiences.", 
-      link: "#" 
-    },
+    // { 
+    //   title: "Animating Interfaces with GSAP & React", 
+    //   date: "Feb 2024", 
+    //   img: "/blog_project_management.png", 
+    //   snippet: "Leveraging GreenSock (GSAP) within React to create fluid, engaging user experiences.", 
+    //   link: "#" 
+    // },
   ];
 
   useEffect(() => {
@@ -1134,9 +1134,9 @@ function Footer() {
           </span>
            © {new Date().getFullYear()}
         </p>
-        <p className="footer-text text-xs font-light mt-1.5 font-['Karla'] text-[#A0A0A0]">
+        {/* <p className="footer-text text-xs font-light mt-1.5 font-['Karla'] text-[#A0A0A0]">
           Powered by React, Tailwind CSS, GSAP, and a sprinkle of cosmic dust.
-        </p>
+        </p> */}
       </div>
     </footer>
   );
