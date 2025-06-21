@@ -2,6 +2,8 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Interview from "./pages/Interview";
 
 // Ensure Tailwind CSS is set up and fonts are imported in your project's main CSS/index file
 // Example:
@@ -1067,7 +1069,7 @@ function Blogs() {
                 </h3>
                 <p className="text-xs mb-2 sm:mb-3 font-['Karla'] text-[#A0A0A0]">{blog.date}</p>
                 <p className="text-sm flex-grow leading-relaxed mb-3 sm:mb-4 font-['Karla'] text-[#808080] line-clamp-3">{blog.snippet}</p>
-                <a href={blog.link} target="_blank" rel="noopener noreferrer" className="read-more-link mt-auto self-start text-sm font-semibold transition-colors duration-300 font-['Karla'] text-[#808080] group/link">
+                <a href={blog.link} target="_blank" rel="noopener noreferrer" className="read-more-link mt-auto self-start text-sm font-semibold transition-colors duration-300 font-['Karla'] text-[#808080] group">
                   Read more <span className="inline-block transition-transform duration-300 ease-in-out group-hover/link:translate-x-1 origin-left">→</span>
                 </a>
               </div>
@@ -1252,22 +1254,27 @@ export default function PortfolioLight() {
   }, []);
 
   return (
-    // Base font, background, text color set here or on body
-    // Perspective can be useful for 3D transforms if needed globally
-    <div className="font-['Karla'] bg-gray-50 text-[#808080] relative">
-      <StarfieldBackground />
-      <CursorTrail />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={
+          <div className="font-['Karla'] bg-gray-50 text-[#808080] relative">
+            <StarfieldBackground />
+            <CursorTrail />
 
-      <main> {/* Wrap sections in main for semantics */}
-        <HeroRedesignedFixed />
-        <Skills />
-        <Projects />
-        <Community />
-        <Blogs />
-        <Footer />
-      </main>
+            <main> {/* Wrap sections in main for semantics */}
+              <HeroRedesignedFixed />
+              <Skills />
+              <Projects />
+              <Community />
+              <Blogs />
+              <Footer />
+            </main>
 
-      <BottomBanner />
-    </div>
+            <BottomBanner />
+          </div>
+        } />
+        <Route path="/interview" element={<Interview />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
