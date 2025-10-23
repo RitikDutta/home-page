@@ -377,9 +377,9 @@ export default function HeroSection() {
             <div className="hero-image-container relative w-full aspect-[3/4] overflow-hidden rounded-[30px] border border-white/60 bg-white/70 shadow-xl backdrop-blur-xl">
               <img
                 ref={imageRef}
-                src="/me.jpeg"
+                src="/me.gif"
                 alt="Ritik Dutta"
-                className="w-full h-full object-cover opacity-0 transform-gpu transition-transform duration-700 ease-out hover:scale-[1.04]"
+                className="w-full h-full opacity-0 transform-gpu transition-transform duration-700 ease-out hover:scale-[1.04]"
               />
             </div>
             <div className="hero-floating-card absolute -left-10 sm:-left-12 top-8 hidden sm:flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 shadow-lg border border-white/60 backdrop-blur-lg animate-hero-float-slow">
