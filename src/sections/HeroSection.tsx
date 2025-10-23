@@ -331,7 +331,7 @@ export default function HeroSection() {
     <section
       id="hero"
       ref={heroRef}
-      className="relative min-h-screen flex flex-col justify-center items-center text-center md:text-left px-6 sm:px-8 lg:px-12 overflow-hidden bg-gradient-to-b from-white via-white/95 to-[#FFF7F4]"
+      className="relative min-h-screen flex flex-col justify-center items-center text-center md:text-left px-6 sm:px-8 lg:px-12 pt-24 pb-16 md:py-24 overflow-hidden bg-gradient-to-b from-white via-white/95 to-[#FFF7F4]"
     >
       <div className="absolute inset-0 pointer-events-none">
         <div
@@ -349,17 +349,17 @@ export default function HeroSection() {
           }}
         />
         <div className="hero-orb absolute inset-x-1/4 top-[22%] h-[420px] rounded-full border border-white/60 bg-white/30 mix-blend-lighten opacity-60 animate-hero-float-delay" />
-        <div className="background-about-text text-[20vw] sm:text-[16vw] md:text-[12vw] font-bold text-[#F1F1F1] uppercase tracking-[0.2em] md:tracking-[0.3em] leading-none select-none">
+        <div className="background-about-text hidden md:block text-[20vw] sm:text-[16vw] md:text-[12vw] font-bold text-[#F1F1F1] uppercase tracking-[0.2em] md:tracking-[0.3em] leading-none select-none">
           Ritik Dutta
         </div>
-        <div className="absolute top-8 left-8 sm:top-12 sm:left-12 md:top-16 md:left-16 flex items-center space-x-3 md:space-x-4">
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 sm:left-12 sm:translate-x-0 sm:top-12 md:top-16 md:left-16 flex items-center space-x-3 md:space-x-4 bg-white/70 px-3 py-2 rounded-xl backdrop-blur-md border border-white/60 shadow-sm">
           <div
             ref={logoRef}
             className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#FF6B6B] flex items-center justify-center text-white font-bold tracking-widest shadow-lg"
           >
             RD
           </div>
-          <div className="hidden sm:flex flex-col items-start font-['Karla'] text-[#707070] bg-white/70 px-3 py-2 rounded-xl backdrop-blur-md border border-white/60 shadow-sm">
+          <div className="hidden sm:flex flex-col items-start font-['Karla'] text-[#707070]">
             <span className="text-[0.6rem] uppercase tracking-[0.35em] text-[#FF6B6B]">
               Portfolio
             </span>
@@ -370,8 +370,8 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-10 lg:gap-14 xl:gap-20 items-center">
-        <div className="order-2 md:order-none md:w-1/2 flex justify-center md:justify-start">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-12 md:gap-14 xl:gap-20 items-center md:items-start">
+        <div className="order-1 md:order-2 md:w-1/2 flex justify-center md:justify-start mt-4 md:mt-0">
           <div className="relative w-full max-w-[320px] sm:max-w-[360px] md:max-w-[420px]">
             <div className="pointer-events-none absolute -inset-8 rounded-[32px] border border-white/40 bg-gradient-to-br from-white/30 via-white/5 to-transparent blur-sm mix-blend-lighten" />
             <div className="hero-image-container relative w-full aspect-[3/4] overflow-hidden rounded-[30px] border border-white/60 bg-white/70 shadow-xl backdrop-blur-xl">
@@ -395,7 +395,7 @@ export default function HeroSection() {
                 </span>
               </div>
             </div>
-            <div className="hero-floating-card absolute -right-8 sm:-right-10 bottom-8 flex items-center gap-3 rounded-2xl bg-[#111827] px-4 py-3 shadow-2xl border border-white/20 text-white backdrop-blur-sm animate-hero-float-delay">
+            <div className="hero-floating-card absolute -right-6 sm:-right-10 bottom-8 hidden sm:flex items-center gap-3 rounded-2xl bg-[#111827] px-4 py-3 shadow-2xl border border-white/20 text-white backdrop-blur-sm animate-hero-float-delay">
               <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#FF6B6B] to-[#FFB199] flex items-center justify-center text-xs font-semibold tracking-[0.2em]">
                 RD
               </div>
@@ -411,7 +411,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="order-1 md:order-none md:w-1/2 flex flex-col justify-center relative text-center md:text-left">
+        <div className="order-2 md:order-1 md:w-1/2 flex flex-col justify-center relative text-center md:text-left">
           <div className="hero-glass-card relative flex flex-col gap-6 md:gap-7 bg-white/75 border border-white/60 rounded-[28px] px-6 py-7 sm:px-8 sm:py-9 shadow-lg backdrop-blur-xl">
             <span className="hero-pill-intro inline-flex items-center justify-center md:justify-start px-4 py-2 rounded-full bg-[#FF6B6B]/10 border border-[#FF6B6B]/30 text-[0.6rem] sm:text-xs uppercase tracking-[0.3em] text-[#FF6B6B] font-['Karla']">
               Creative Technologist & Storyteller
