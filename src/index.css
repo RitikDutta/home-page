@@ -3,10 +3,246 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Optional: Add global base styles here if needed */
+:root {
+  --surface-page: #fdfdfd;
+  --surface-section: #fff7f4;
+  --surface-card: rgba(255, 255, 255, 0.85);
+  --surface-card-strong: rgba(255, 255, 255, 0.92);
+  --surface-card-overlay: rgba(255, 255, 255, 0.35);
+  --border-soft: rgba(128, 128, 160, 0.12);
+  --border-strong: rgba(255, 107, 107, 0.28);
+  --text-strong: #111111;
+  --text-primary: #202020;
+  --text-secondary: #404040;
+  --text-muted: #5a5a5a;
+  --text-subtle: #7a7a7a;
+  --accent-primary: #ff6b6b;
+  --accent-primary-strong: #e55a5a;
+  --accent-secondary: #ff9e7c;
+  --accent-tertiary: #ffd166;
+  --accent-soft: rgba(255, 107, 107, 0.12);
+  --accent-glow: rgba(255, 107, 107, 0.28);
+  --skill-ring-track: rgba(16, 16, 16, 0.08);
+  --skill-bar-track: rgba(16, 16, 16, 0.08);
+  --skill-tag-bg: rgba(255, 107, 107, 0.08);
+  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  --tone-ai: color-mix(in srgb, var(--accent-primary) 72%, var(--accent-tertiary));
+  --tone-web: color-mix(in srgb, var(--accent-primary) 62%, var(--accent-secondary));
+  --tone-systems: color-mix(in srgb, var(--accent-primary) 58%, var(--accent-secondary));
+  --tone-ops: color-mix(in srgb, var(--accent-primary) 66%, var(--accent-tertiary));
+}
+
 body {
-  /* You might set default background/text colors here later,
-     but the Portfolio component sets it too */
+  background-color: var(--surface-page);
+  color: var(--text-secondary);
+}
+
+@keyframes skillsAmbientDrift {
+  0% {
+    transform: translate3d(-10%, -4%, 0) scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translate3d(6%, 4%, 0) scale(1.05);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(-12%, 2%, 0) scale(1.02);
+    opacity: 0.65;
+  }
+}
+
+.skills-ambient-gradient {
+  position: absolute;
+  inset: -15% -10%;
+  background:
+    radial-gradient(
+      32% 38% at 22% 18%,
+      color-mix(in srgb, var(--accent-primary) 22%, transparent) 0%,
+      transparent 80%
+    ),
+    radial-gradient(
+      28% 36% at 80% 24%,
+      color-mix(in srgb, var(--accent-secondary) 20%, transparent) 0%,
+      transparent 75%
+    ),
+    radial-gradient(
+      42% 52% at 60% 80%,
+      color-mix(in srgb, var(--accent-tertiary) 18%, transparent) 0%,
+      transparent 70%
+    );
+  filter: blur(60px);
+  opacity: 0.7;
+  transform-origin: center;
+  animation: skillsAmbientDrift 18s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-ambient-gradient {
+    animation: none;
+  }
+}
+
+.skill-card-v2 {
+  position: relative;
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 1.75rem;
+  backdrop-filter: saturate(160%) blur(18px);
+  transition:
+    transform 0.55s var(--ease-out-cubic),
+    box-shadow 0.55s var(--ease-out-cubic),
+    border-color 0.55s var(--ease-out-cubic),
+    background 0.55s var(--ease-out-cubic);
+  overflow: hidden;
+}
+
+.skill-card-v2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 20%, color-mix(in srgb, var(--accent-soft) 40%, transparent) 100%);
+  opacity: 0;
+  transition: opacity 0.55s var(--ease-out-cubic);
+  pointer-events: none;
+}
+
+.skill-card-v2:hover,
+.skill-card-v2:focus-visible {
+  transform: translateY(-8px);
+  border-color: color-mix(in srgb, var(--accent-primary) 35%, transparent);
+  box-shadow: 0 32px 60px -42px var(--accent-glow);
+}
+
+.skill-card-v2:hover::before,
+.skill-card-v2:focus-visible::before {
+  opacity: 1;
+}
+
+.skill-card-v2:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--accent-primary) 22%, transparent),
+    0 26px 60px -40px var(--accent-glow);
+}
+
+.skill-card-v2[data-tone="ai"] {
+  --skill-accent-base: var(--tone-ai);
+}
+
+.skill-card-v2[data-tone="web"] {
+  --skill-accent-base: var(--tone-web);
+}
+
+.skill-card-v2[data-tone="systems"] {
+  --skill-accent-base: var(--tone-systems);
+}
+
+.skill-card-v2[data-tone="ops"] {
+  --skill-accent-base: var(--tone-ops);
+}
+
+.skill-ring {
+  --skill-progress: var(--skill-target-progress, 0);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background:
+    conic-gradient(
+      var(--skill-accent-base, var(--accent-primary)) calc(var(--skill-progress) * 1turn),
+      var(--skill-ring-track) 0
+    );
+  transition: transform 0.45s var(--ease-out-cubic);
+}
+
+.skill-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0.35rem;
+  border-radius: 9999px;
+  background: var(--surface-card-strong);
+}
+
+.skill-ring span {
+  position: relative;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.skill-ring::after {
+  content: "";
+  position: absolute;
+  inset: -0.35rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--skill-accent-base, var(--accent-primary)) 22%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out-cubic);
+}
+
+.skill-card-v2:hover .skill-ring,
+.skill-card-v2:focus-visible .skill-ring {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.skill-card-v2:hover .skill-ring::after,
+.skill-card-v2:focus-visible .skill-ring::after {
+  opacity: 1;
+}
+
+.skill-bar {
+  position: relative;
+  height: 0.6rem;
+  border-radius: 9999px;
+  background: var(--skill-bar-track);
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  --skill-progress: var(--skill-target-progress, 0);
+  position: absolute;
+  inset: 0;
+  transform: scaleX(var(--skill-progress));
+  transform-origin: left center;
+  border-radius: inherit;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--skill-accent-base, var(--accent-primary)) 72%, var(--surface-card)), color-mix(in srgb, var(--skill-accent-base, var(--accent-primary)) 100%, transparent));
+  transition: transform 0.6s var(--ease-out-cubic);
+}
+
+.skill-card-v2 .skill-tag {
+  background: var(--skill-tag-bg);
+  color: var(--accent-primary);
+}
+
+.skills-ticker {
+  display: flex;
+  gap: 1.5rem;
+  min-width: max-content;
+  align-items: center;
+  animation: skillsTicker 26s linear infinite;
+}
+
+@keyframes skillsTicker {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skill-card-v2,
+  .skill-ring,
+  .skill-bar-fill,
+  .skills-ticker {
+    transition-duration: 0s;
+    animation: none;
+  }
 }
 
 @layer utilities {
@@ -72,3 +308,80 @@ body {
     animation: heroScroll 2.8s ease-in-out infinite;
   }
 }
+
+/* ——— Project Section polish ——— */
+.project-ambient {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.45;
+  background:
+    radial-gradient(42% 52% at 30% 30%, color-mix(in srgb, var(--accent-primary) 18%, transparent) 0%, transparent 70%),
+    radial-gradient(38% 46% at 70% 60%, color-mix(in srgb, var(--accent-tertiary) 16%, transparent) 0%, transparent 72%);
+  transform: translate3d(0,0,0);
+  animation: projectAmbient 18s ease-in-out infinite alternate;
+}
+.project-ambient.alt {
+  opacity: 0.35;
+  background:
+    radial-gradient(42% 52% at 60% 40%, color-mix(in srgb, var(--accent-secondary) 16%, transparent) 0%, transparent 72%),
+    radial-gradient(38% 46% at 30% 70%, color-mix(in srgb, var(--accent-primary) 12%, transparent) 0%, transparent 70%);
+}
+@keyframes projectAmbient {
+  0%   { transform: translate3d(-2%, 1%, 0) scale(0.98) }
+  50%  { transform: translate3d( 3%, -2%, 0) scale(1.03) }
+  100% { transform: translate3d(-1%, 2%, 0) scale(1.01) }
+}
+
+.project-tag {
+  @apply text-[11px] font-medium px-2.5 py-1 rounded-full;
+  background: var(--skill-tag-bg);
+  color: var(--accent-primary);
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 18%, transparent);
+}
+
+.tech-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.72rem;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.65));
+  border: 1px solid var(--border-soft);
+  color: var(--text-primary);
+  box-shadow: 0 8px 22px -18px var(--accent-glow);
+  transition: transform 180ms var(--ease-out-cubic), border-color 220ms var(--ease-out-cubic), box-shadow 220ms var(--ease-out-cubic);
+}
+.tech-pill:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent-primary) 30%, transparent);
+  box-shadow: 0 18px 32px -22px var(--accent-glow);
+}
+
+/* subtle image shine */
+.project-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 60% at 80% -10%, rgba(255,255,255,0.55), transparent 45%),
+    linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%);
+  opacity: 0;
+  transition: opacity .6s var(--ease-out-cubic);
+}
+.project-card:hover .project-shine { opacity: .9; }
+
+/* reduce motion friendly */
+@media (prefers-reduced-motion: reduce) {
+  .project-ambient { animation: none; }
+  .project-shine { transition: none; }
+}
+
+/* Make images crisp without harsh borders */
+.project-img {
+  image-rendering: -webkit-optimize-contrast;
+  will-change: transform;
+}
+
