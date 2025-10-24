@@ -1,7 +1,7 @@
 // @ts-nocheck
 /**
  * Skills overview grid redesigned for always-on visibility and motion-responsive polish.
- * Linked styles: shared color tokens + utilities in src/index.css, including .skill-card-v2, ring/bar helpers, and ambient background.
+ * Linked styles: shared color tokens + utilities in src/index.css, including .skill-card-v2 and ambient background flourishes.
  * External script: GSAP ScrollTrigger animations configured below with prefers-reduced-motion handling.
  */
 import { useEffect, useMemo, useRef } from "react";

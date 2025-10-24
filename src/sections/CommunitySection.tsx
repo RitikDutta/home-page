@@ -161,14 +161,14 @@ export default function CommunitySection() {
         }
 
         // existing hover micro-interactions
-        const hoverBorderColor = "#FF6B6B";
+        const hoverBorderColor = "#94B8C4";
         const htl = gsap.timeline({ paused: true });
         htl.to(
           card,
           {
             y: -6,
             scale: 1.03,
-            boxShadow: "0 8px 20px rgba(0,0,0,0.09)",
+            boxShadow: "0 12px 28px rgba(148, 184, 196, 0.25)",
             borderColor: hoverBorderColor,
             duration: 0.3,
             ease: "power1.out",
@@ -230,18 +230,26 @@ export default function CommunitySection() {
     <section
       id="community"
       ref={sectionRef}
-      className="relative py-16 md:py-24 lg:py-28 text-center bg-white text-[#808080] overflow-hidden"
+      className="community-section relative overflow-hidden py-16 md:py-24 lg:py-28 text-center"
     >
-      <div className="relative z-10">
-        <h2 className="community-header text-3xl sm:text-4xl md:text-5xl font-bold mb-3 font-['Playfair Display'] text-black tracking-tight px-4">
-          Beyond the Code
+      <div aria-hidden="true" className="community-ambient community-ambient--left" />
+      <div aria-hidden="true" className="community-ambient community-ambient--right" />
+      <div aria-hidden="true" className="community-ambient community-ambient--top" />
+
+      <div className="relative z-20">
+        <span className="community-header inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-4 py-2 text-[0.65rem] uppercase tracking-[0.4em] text-[#5F7E91] backdrop-blur-sm">
+          Gentle footprints
+        </span>
+        <h2 className="community-header mt-6 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-[#1f2a37] font-['Playfair Display'] px-4">
+          Quiet moments of community care
         </h2>
-        <p className="community-header max-w-2xl mx-auto px-4 text-base sm:text-lg mb-12 md:mb-16 leading-relaxed font-['Karla'] text-[#808080]">
-          Giving back fuels the things I build. A snapshot of the community moments that inspire me.
+        <p className="community-header max-w-2xl mx-auto px-4 mt-4 text-base sm:text-lg leading-relaxed font-['Karla'] text-[#5b7186]">
+          Slow mornings spent in gardens, shared meals under open skies, and small hands clasped in celebration.
+          These scenes remind me to build with softness and intention.
         </p>
       </div>
 
-      <div className="marquee-wrapper relative">
+      <div className="marquee-wrapper relative z-20 mt-12 md:mt-16">
         <div className="overflow-x-hidden">
           <div
             ref={containerRef}
@@ -250,25 +258,25 @@ export default function CommunitySection() {
             {fullList.map((item, index) => (
               <article
                 key={`${item.heading}-${index}`}
-                className="comm-card opacity-0 min-w-[280px] sm:min-w-[320px] md:min-w-[360px] bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden transition-transform duration-300"
+                className="comm-card opacity-0 min-w-[280px] sm:min-w-[320px] md:min-w-[360px] rounded-3xl border border-white/60 bg-white/70 shadow-[0_26px_70px_-48px_rgba(91,113,134,0.5)] overflow-hidden transition-transform duration-300 backdrop-blur-xl"
               >
                 {/* media wrapper now has a class for reveal */}
-                <div className="comm-media relative h-44 sm:h-48 md:h-56 overflow-hidden bg-gray-100">
+                <div className="comm-media relative h-44 sm:h-48 md:h-56 overflow-hidden bg-[#e7f2f8]">
                   <img
                     src={item.img}
                     alt={item.heading}
-                    className="comm-card-img w-full h-full object-cover"
+                    className="comm-card-img w-full h-full object-cover saturate-95"
                   />
-                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
+                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0f1f2e]/55 via-[#0f1f2e]/10 to-transparent pointer-events-none" />
                 </div>
                 <div className="p-5 text-left">
-                  <h3 className="text-lg sm:text-xl font-semibold font-['Playfair Display'] text-black mb-2">
+                  <h3 className="text-lg sm:text-xl font-semibold font-['Playfair Display'] text-[#1f2a37] mb-2">
                     {item.heading}
                   </h3>
-                  <p className="text-sm text-[#707070] leading-relaxed mb-4 font-['Karla']">
+                  <p className="text-sm text-[#567089] leading-relaxed mb-4 font-['Karla']">
                     {item.description}
                   </p>
-                  <p className="text-xs uppercase tracking-[0.2em] text-[#A0A0A0] font-['Karla']">
+                  <p className="text-xs uppercase tracking-[0.25em] text-[#7c93a6] font-['Karla']">
                     {item.date}
                   </p>
                 </div>
@@ -280,11 +288,11 @@ export default function CommunitySection() {
         {/* fade edges */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-16 md:w-24 bg-gradient-to-r from-white via-white/90 to-transparent z-10"
+          className="pointer-events-none absolute inset-y-0 left-0 w-14 sm:w-20 md:w-28 bg-gradient-to-r from-[#f4f9ff] via-white/70 to-transparent z-10"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-16 md:w-24 bg-gradient-to-l from-white via-white/90 to-transparent z-10"
+          className="pointer-events-none absolute inset-y-0 right-0 w-14 sm:w-20 md:w-28 bg-gradient-to-l from-[#f4f9ff] via-white/70 to-transparent z-10"
         />
       </div>
     </section>

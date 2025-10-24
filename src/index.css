@@ -311,3 +311,41 @@ body {
   will-change: transform;
 }
 
+.community-section {
+  background: linear-gradient(180deg, #f6fbff 0%, #fbfefc 55%, #f4f9ff 100%);
+  color: #5b7186;
+}
+
+.community-ambient {
+  position: absolute;
+  border-radius: 40%;
+  filter: blur(80px);
+  opacity: 0.55;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
+
+.community-ambient--left {
+  top: -20%;
+  left: -12%;
+  width: clamp(280px, 30vw, 360px);
+  height: clamp(280px, 30vw, 360px);
+  background: radial-gradient(circle at 30% 40%, rgba(147, 197, 207, 0.65), transparent 70%);
+}
+
+.community-ambient--right {
+  bottom: -18%;
+  right: -10%;
+  width: clamp(260px, 32vw, 380px);
+  height: clamp(260px, 32vw, 380px);
+  background: radial-gradient(circle at 60% 60%, rgba(167, 210, 198, 0.6), transparent 72%);
+}
+
+.community-ambient--top {
+  top: 10%;
+  left: 50%;
+  width: clamp(320px, 34vw, 420px);
+  height: clamp(320px, 34vw, 420px);
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 50% 40%, rgba(188, 210, 233, 0.5), transparent 75%);
+}
