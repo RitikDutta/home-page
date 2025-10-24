@@ -335,38 +335,22 @@ export default function HeroSection() {
     >
       <div className="absolute inset-0 pointer-events-none">
         <div
-          className="hero-orb absolute -top-32 right-[-12%] w-[320px] sm:w-[380px] aspect-square rounded-full blur-3xl opacity-60 animate-hero-pulse"
+          className="hero-orb absolute -top-32 right-[-12%] w-[320px] sm:w-[380px] aspect-square rounded-full blur-3xl opacity-60 animate-hero-pulse hidden md:block"
           style={{
             background:
               "radial-gradient(circle at 30% 30%, rgba(255, 107, 107, 0.45), rgba(255, 194, 163, 0.08), transparent 65%)",
           }}
         />
         <div
-          className="hero-orb absolute bottom-[-18%] left-[-10%] w-[300px] sm:w-[360px] aspect-square rounded-full blur-3xl opacity-60 animate-hero-pulse"
+          className="hero-orb absolute bottom-[-18%] left-[-10%] w-[300px] sm:w-[360px] aspect-square rounded-full blur-3xl opacity-60 animate-hero-pulse hidden md:block"
           style={{
             background:
               "radial-gradient(circle at 70% 70%, rgba(255, 209, 102, 0.4), rgba(255, 255, 255, 0.08), transparent 70%)",
           }}
         />
-        <div className="hero-orb absolute inset-x-1/4 top-[22%] h-[420px] rounded-full border border-white/60 bg-white/30 mix-blend-lighten opacity-60 animate-hero-float-delay" />
+        <div className="hero-orb absolute inset-x-1/4 top-[22%] h-[420px] rounded-full border border-white/60 bg-white/30 mix-blend-lighten opacity-60 animate-hero-float-delay hidden md:block" />
         <div className="background-about-text hidden md:block text-[20vw] sm:text-[16vw] md:text-[12vw] font-bold text-[#F1F1F1] uppercase tracking-[0.2em] md:tracking-[0.3em] leading-none select-none">
           Ritik Dutta
-        </div>
-        <div className="absolute top-8 left-1/2 -translate-x-1/2 sm:left-12 sm:translate-x-0 sm:top-12 md:top-16 md:left-16 flex items-center space-x-3 md:space-x-4 bg-white/70 px-3 py-2 rounded-xl backdrop-blur-md border border-white/60 shadow-sm">
-          <div
-            ref={logoRef}
-            className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#FF6B6B] flex items-center justify-center text-white font-bold tracking-widest shadow-lg"
-          >
-            RD
-          </div>
-          <div className="hidden sm:flex flex-col items-start font-['Karla'] text-[#707070]">
-            <span className="text-[0.6rem] uppercase tracking-[0.35em] text-[#FF6B6B]">
-              Portfolio
-            </span>
-            <span className="text-sm font-semibold">
-              Building playful AI experiences
-            </span>
-          </div>
         </div>
       </div>
 
@@ -382,7 +366,7 @@ export default function HeroSection() {
                 className="w-full h-full opacity-0 transform-gpu transition-transform duration-700 ease-out hover:scale-[1.04]"
               />
             </div>
-            <div className="hero-floating-card absolute -left-10 sm:-left-12 top-8 hidden sm:flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 shadow-lg border border-white/60 backdrop-blur-lg animate-hero-float-slow">
+            <div className="hero-floating-card absolute -left-10 sm:-left-12 top-100 hidden sm:flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 shadow-lg border border-white/60 backdrop-blur-lg animate-hero-float-slow">
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6B6B]/10 border border-[#FF6B6B]/30">
                 <span className="h-2 w-2 rounded-full bg-[#FF6B6B]" />
               </div>
