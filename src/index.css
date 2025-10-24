@@ -22,8 +22,6 @@
   --accent-tertiary: #ffd166;
   --accent-soft: rgba(255, 107, 107, 0.12);
   --accent-glow: rgba(255, 107, 107, 0.28);
-  --skill-ring-track: rgba(16, 16, 16, 0.08);
-  --skill-bar-track: rgba(16, 16, 16, 0.08);
   --skill-tag-bg: rgba(255, 107, 107, 0.08);
   --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 
@@ -143,76 +141,6 @@ body {
   --skill-accent-base: var(--tone-ops);
 }
 
-.skill-ring {
-  --skill-progress: var(--skill-target-progress, 0);
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 9999px;
-  display: grid;
-  place-items: center;
-  position: relative;
-  background:
-    conic-gradient(
-      var(--skill-accent-base, var(--accent-primary)) calc(var(--skill-progress) * 1turn),
-      var(--skill-ring-track) 0
-    );
-  transition: transform 0.45s var(--ease-out-cubic);
-}
-
-.skill-ring::before {
-  content: "";
-  position: absolute;
-  inset: 0.35rem;
-  border-radius: 9999px;
-  background: var(--surface-card-strong);
-}
-
-.skill-ring span {
-  position: relative;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-strong);
-}
-
-.skill-ring::after {
-  content: "";
-  position: absolute;
-  inset: -0.35rem;
-  border-radius: 9999px;
-  background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--skill-accent-base, var(--accent-primary)) 22%, transparent), transparent 70%);
-  opacity: 0;
-  transition: opacity 0.45s var(--ease-out-cubic);
-}
-
-.skill-card-v2:hover .skill-ring,
-.skill-card-v2:focus-visible .skill-ring {
-  transform: translateY(-2px) scale(1.03);
-}
-
-.skill-card-v2:hover .skill-ring::after,
-.skill-card-v2:focus-visible .skill-ring::after {
-  opacity: 1;
-}
-
-.skill-bar {
-  position: relative;
-  height: 0.6rem;
-  border-radius: 9999px;
-  background: var(--skill-bar-track);
-  overflow: hidden;
-}
-
-.skill-bar-fill {
-  --skill-progress: var(--skill-target-progress, 0);
-  position: absolute;
-  inset: 0;
-  transform: scaleX(var(--skill-progress));
-  transform-origin: left center;
-  border-radius: inherit;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--skill-accent-base, var(--accent-primary)) 72%, var(--surface-card)), color-mix(in srgb, var(--skill-accent-base, var(--accent-primary)) 100%, transparent));
-  transition: transform 0.6s var(--ease-out-cubic);
-}
-
 .skill-card-v2 .skill-tag {
   background: var(--skill-tag-bg);
   color: var(--accent-primary);
@@ -237,8 +165,6 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .skill-card-v2,
-  .skill-ring,
-  .skill-bar-fill,
   .skills-ticker {
     transition-duration: 0s;
     animation: none;
@@ -384,5 +310,4 @@ body {
   image-rendering: -webkit-optimize-contrast;
   will-change: transform;
 }
-
 

@@ -31,6 +31,13 @@ const ArrowIcon = () => (
   </svg>
 );
 
+const getDepthLabel = (value: number) => {
+  if (value >= 90) return "Principal depth";
+  if (value >= 85) return "Advanced depth";
+  if (value >= 75) return "Seasoned practice";
+  return "Emerging focus";
+};
+
 export default function SkillsSection() {
   const skillsRef = useRef<HTMLDivElement | null>(null);
 
@@ -209,42 +216,7 @@ export default function SkillsSection() {
         });
 
         cards.forEach((card) => {
-          const ratio = parseFloat(card.dataset.progressRatio || "0");
-          const ring = card.querySelector<HTMLElement>(".skill-ring");
-          const bar = card.querySelector<HTMLElement>(".skill-bar-fill");
           const tags = card.querySelectorAll<HTMLElement>(".skill-tag");
-
-          if (ring) {
-            gsap.fromTo(
-              ring,
-              { "--skill-progress": 0 },
-              {
-                "--skill-progress": ratio,
-                duration: 1.4,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: card,
-                  start: "top 80%",
-                },
-              }
-            );
-          }
-
-          if (bar) {
-            gsap.fromTo(
-              bar,
-              { "--skill-progress": 0 },
-              {
-                "--skill-progress": ratio,
-                duration: 1.1,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: card,
-                  start: "top 80%",
-                },
-              }
-            );
-          }
 
           if (tags.length) {
             gsap.fromTo(
@@ -360,9 +332,7 @@ export default function SkillsSection() {
               key={skill.category}
               className="skill-card-v2 group flex h-full flex-col gap-6 px-5 py-6 focus-visible:outline-none sm:px-6 sm:py-7 md:px-7 md:py-8"
               data-tone={skill.tone}
-              data-progress-ratio={(skill.proficiency / 100).toFixed(2)}
               tabIndex={0}
-              style={{ "--skill-target-progress": (skill.proficiency / 100).toString() }}
             >
               <div className="relative z-10 flex flex-1 flex-col gap-6">
                 <div className="flex flex-wrap items-start justify-between gap-4 sm:gap-6">
@@ -385,74 +355,57 @@ export default function SkillsSection() {
                   </div>
                   {!skill.blurred && (
                     <span className="inline-flex items-center rounded-full border border-[color:var(--border-soft)] bg-[color:var(--surface-card-strong)] px-3 py-1 text-[0.6rem] uppercase tracking-[0.35em] text-[color:var(--text-subtle)]">
-                      Core
+                      {getDepthLabel(skill.proficiency).toUpperCase()}
                     </span>
                   )}
                 </div>
 
-                <p className="text-sm sm:text-base leading-relaxed text-balance text-[color:var(--text-muted)] font-['Karla']">
-                  {skill.summary}
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {skill.tags.map((tag) => (
-                    <span
-                      key={`${skill.category}-${tag}`}
-                      className="skill-tag inline-flex items-center rounded-full px-3 py-1 text-[0.7rem] uppercase tracking-[0.25em]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap items-center gap-4">
-                  <div className="skill-ring" aria-hidden="true">
-                    <span>{skill.proficiency}</span>
-                  </div>
-                  <div className="flex min-w-0 flex-1 flex-col gap-2 sm:min-w-[200px]">
-                    <div className="flex flex-wrap items-center justify-between gap-2 text-[0.65rem] uppercase tracking-[0.28em] text-[color:var(--text-subtle)]">
-                      <span>Proficiency</span>
-                      <span>{skill.proficiency}%</span>
-                    </div>
-                    <div className="skill-bar" role="presentation">
-                      <div className="skill-bar-fill" aria-hidden="true" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-auto flex flex-col gap-3 text-left font-['Karla'] text-sm text-[color:var(--text-muted)]">
-                  <p>{skill.application}</p>
-                  {!skill.blurred && skill.project && (
-                    <a
-                      href={skill.project.href}
-                      target={skill.project.external ? "_blank" : undefined}
-                      rel={skill.project.external ? "noreferrer" : undefined}
-                      className="group inline-flex w-max items-center gap-2 text-xs uppercase tracking-[0.3em] text-[color:var(--accent-primary)] transition-transform transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--surface-card-strong)]"
-                    >
-                      {skill.project.label}
-                      <ArrowIcon />
-                    </a>
-                  )}
-                  {skill.learning && (
-                    <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-subtle)]">
-                      Currently exploring {skill.learning}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {skill.blurred && (
-                <div className="pointer-events-none absolute inset-0 grid place-items-center rounded-[1.75rem] bg-[color:var(--surface-card-overlay)] px-6 py-10 text-center text-[color:var(--text-secondary)] backdrop-blur-xl">
-                  <div className="space-y-3">
-                    <p className="text-sm">
-                      This track is available for vetted engagements.
-                    </p>
+                {skill.blurred ? (
+                  <div className="flex flex-1 flex-col items-center justify-center gap-4 rounded-3xl border border-[color:var(--border-soft)] bg-[color:var(--surface-card-overlay)] px-6 py-10 text-center text-sm text-[color:var(--text-secondary)] backdrop-blur-xl">
+                    <p>This track is available for vetted engagements.</p>
                     <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-subtle)]">
                       Reach out directly for a private walkthrough.
                     </p>
                   </div>
-                </div>
-              )}
+                ) : (
+                  <>
+                    <p className="text-sm sm:text-base leading-relaxed text-balance text-[color:var(--text-muted)] font-['Karla']">
+                      {skill.summary}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2">
+                      {skill.tags.map((tag) => (
+                        <span
+                          key={`${skill.category}-${tag}`}
+                          className="skill-tag inline-flex items-center rounded-full px-3 py-1 text-[0.7rem] uppercase tracking-[0.25em]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-auto flex flex-col gap-3 text-left font-['Karla'] text-sm text-[color:var(--text-muted)]">
+                      <p>{skill.application}</p>
+                      {skill.project && (
+                        <a
+                          href={skill.project.href}
+                          target={skill.project.external ? "_blank" : undefined}
+                          rel={skill.project.external ? "noreferrer" : undefined}
+                          className="group inline-flex w-max items-center gap-2 text-xs uppercase tracking-[0.3em] text-[color:var(--accent-primary)] transition-transform transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--surface-card-strong)]"
+                        >
+                          {skill.project.label}
+                          <ArrowIcon />
+                        </a>
+                      )}
+                      {skill.learning && (
+                        <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-subtle)]">
+                          Currently exploring {skill.learning}
+                        </p>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
             </article>
           ))}
         </div>
