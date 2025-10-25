@@ -87,25 +87,6 @@
     aspect-ratio: 1;
   }
 
-  .community-scroll__picture--first img {
-    rotate: 8deg;
-  }
-
-  .community-scroll__picture--second img {
-    rotate: -5deg;
-  }
-
-  .community-scroll__picture--third img {
-    rotate: 18deg;
-  }
-
-  .community-scroll__picture--fourth img {
-    rotate: -14deg;
-  }
-
-  .community-scroll__picture--fifth img {
-    rotate: 10deg;
-  }
 }
 
 .community-scroll__stories {

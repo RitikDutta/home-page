@@ -16,7 +16,7 @@ const communityStories = [
       "As a committed volunteer, I've had the honor of supporting nearby villages on festival days. We collected rice, daals, and aata, then delivered them door-to-door so families could celebrate without worry.",
     date: "Oct 2023",
     image: {
-      src: "/social_impact_food_drive.jpeg",
+      src: "/social_impact_food_drive.jpg",
       alt: "Volunteers distributing staple food items during a food drive.",
     },
   },
@@ -52,7 +52,7 @@ const communityStories = [
       "Serving hot lunches to under-resourced children taught me that steady nutrition builds more than strength—it builds belief. Each plate is garnished with encouragement and care.",
     date: "May 2024",
     image: {
-      src: "/social_impact_food_drive_3.jpeg",
+      src: "/social_impact_food_drive_3.jpg",
       alt: "Volunteer serving food to children during a mid-day meal drive.",
     },
   },
