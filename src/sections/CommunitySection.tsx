@@ -44,10 +44,50 @@ const communityStories = [
       alt: "Volunteers planting a young tree during a community drive.",
     },
   },
+  {
+    id: "community-cultivating",
+    title: "Cultivating Futures",
+    accent: "Meals that nourish bodies and confidence.",
+    description:
+      "Serving hot lunches to under-resourced children taught me that steady nutrition builds more than strength—it builds belief. Each plate is garnished with encouragement and care.",
+    date: "May 2024",
+    image: {
+      src: "/social_impact_food_drive_3.jpeg",
+      alt: "Volunteer serving food to children during a mid-day meal drive.",
+    },
+  },
+  {
+    id: "community-celebrate",
+    title: "Celebration Circles",
+    accent: "Festive gatherings powered by shared giving.",
+    description:
+      "From independence day parades to evening cultural meets, I love hosting spaces where every family feels invited. Crafting those moments of belonging keeps the circle growing.",
+    date: "Jun 2024",
+    image: {
+      src: "/social_impact_3.jpeg",
+      alt: "Community members celebrating together at a neighborhood event.",
+    },
+  },
 ];
 
-const ordinalClass = ["first", "second", "third"];
-const rotationAngles = [8, -6, 16];
+const ordinalClass = ["first", "second", "third", "fourth", "fifth"];
+const rotationAngles = [8, -6, 16, -12, 6];
+const stackLayouts = [
+  { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, blur: 0, zIndex: 50 },
+  { xPercent: 12, yPercent: 8, scale: 0.95, opacity: 0.85, blur: 2, zIndex: 40 },
+  { xPercent: 26, yPercent: 18, scale: 0.9, opacity: 0.7, blur: 4, zIndex: 30 },
+  { xPercent: 38, yPercent: 26, scale: 0.84, opacity: 0.55, blur: 5, zIndex: 20 },
+  { xPercent: 46, yPercent: 32, scale: 0.8, opacity: 0.48, blur: 6, zIndex: 10 },
+];
+
+const exitLayout = {
+  xPercent: -40,
+  yPercent: -18,
+  scale: 0.82,
+  opacity: 0,
+  blur: 8,
+  zIndex: 5,
+};
 
 export default function CommunitySection() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -104,19 +144,48 @@ export default function CommunitySection() {
 
         const dynamicTriggers: ScrollTrigger[] = [];
 
+        const applyStack = (activeIndex: number, immediate = false) => {
+          const total = pictures.length;
+          const targetIndex = Math.max(0, Math.min(total - 1, activeIndex));
+
+          pictures.forEach((picture, idx) => {
+            const delta = idx - targetIndex;
+            let layout;
+
+            if (delta === 0) {
+              layout = stackLayouts[0];
+            } else if (delta > 0) {
+              layout = stackLayouts[Math.min(delta, stackLayouts.length - 1)];
+            } else {
+              layout = exitLayout;
+            }
+
+            const baseProps = {
+              xPercent: layout.xPercent,
+              yPercent: layout.yPercent,
+              scale: layout.scale,
+              opacity: layout.opacity,
+              filter: `blur(${layout.blur}px)`,
+              zIndex: layout.zIndex,
+              rotate: rotationAngles[idx] ?? rotationAngles[rotationAngles.length - 1] ?? 0,
+              transformOrigin: "bottom left",
+            };
+
+            if (immediate) {
+              gsap.set(picture, baseProps);
+            } else {
+              gsap.to(picture, {
+                ...baseProps,
+                duration: 0.85,
+                ease: "power3.out",
+              });
+            }
+          });
+        };
+
         const setBaseState = (activeIndex = activeStoryIndexRef.current) => {
           const currentIndex = Math.max(0, Math.min(pictures.length - 1, activeIndex));
-          pictures.forEach((picture, index) => {
-            const isActive = index === currentIndex;
-            gsap.set(picture, {
-              opacity: isActive ? 1 : 0,
-              scale: isActive ? 1 : 0.88,
-              rotate: rotationAngles[index] ?? 4,
-              filter: isActive ? "blur(0px)" : "blur(6px)",
-              zIndex: pictures.length - index,
-              transformOrigin: "bottom left",
-            });
-          });
+          applyStack(currentIndex, true);
 
           dots.forEach((dot, index) => {
             const isActive = index === currentIndex;
@@ -138,18 +207,7 @@ export default function CommunitySection() {
           if (clampedIndex === activeStoryIndexRef.current) return;
           activeStoryIndexRef.current = clampedIndex;
 
-          pictures.forEach((picture, idx) => {
-            const isActive = idx === clampedIndex;
-            gsap.to(picture, {
-              opacity: isActive ? 1 : 0,
-              scale: isActive ? 1 : 0.88,
-              rotate: rotationAngles[idx] ?? 4,
-              filter: isActive ? "blur(0px)" : "blur(6px)",
-              zIndex: isActive ? pictures.length : pictures.length - idx,
-              duration: 0.85,
-              ease: "power3.out",
-            });
-          });
+          applyStack(clampedIndex);
 
           dots.forEach((dot, idx) => {
             gsap.to(dot, {

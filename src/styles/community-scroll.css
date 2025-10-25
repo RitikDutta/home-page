@@ -98,6 +98,14 @@
   .community-scroll__picture--third img {
     rotate: 18deg;
   }
+
+  .community-scroll__picture--fourth img {
+    rotate: -14deg;
+  }
+
+  .community-scroll__picture--fifth img {
+    rotate: 10deg;
+  }
 }
 
 .community-scroll__stories {
