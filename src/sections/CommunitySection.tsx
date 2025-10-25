@@ -92,6 +92,8 @@ const exitLayout = {
 export default function CommunitySection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const activeStoryIndexRef = useRef(0);
+  const mobileTrackRef = useRef<HTMLDivElement | null>(null);
+  const mobileTweenRef = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     const mm = gsap.matchMedia();
@@ -114,21 +116,123 @@ export default function CommunitySection() {
         });
       }
 
-      const mobileStories = gsap.utils.toArray<HTMLElement>(".community-scroll__mobile-story");
-      if (mobileStories.length) {
-        gsap.from(mobileStories, {
-          opacity: 0,
-          y: 18,
-          duration: 0.65,
-          ease: "power2.out",
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: ".community-scroll__mobile",
-            start: "top 90%",
-            once: true,
-          },
+      mm.add("(max-width: 1023px)", () => {
+        const track = mobileTrackRef.current;
+        if (!track) return () => {};
+
+        const cards = Array.from(track.querySelectorAll<HTMLElement>(".community-scroll__mobile-card"));
+        if (!cards.length) return () => {};
+
+        const baseCount = communityStories.length;
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        const teardownTween = () => {
+          mobileTweenRef.current?.kill();
+          mobileTweenRef.current = null;
+          gsap.set(track, { x: 0 });
+        };
+
+        const computeLoopWidth = () => {
+          const primary = cards.slice(0, baseCount);
+          if (!primary.length) return 0;
+          const style = window.getComputedStyle(track);
+          const gap = parseFloat(style.columnGap || style.gap || "0");
+          let total = 0;
+          primary.forEach((card, idx) => {
+            total += card.offsetWidth;
+            if (idx !== primary.length - 1) total += gap;
+          });
+          return total;
+        };
+
+        const setupTween = () => {
+          const loopWidth = computeLoopWidth();
+          if (!loopWidth) {
+            teardownTween();
+            return;
+          }
+
+          gsap.set(track, { x: 0 });
+          mobileTweenRef.current?.kill();
+
+          const duration = Math.max(28, loopWidth / 60);
+
+          mobileTweenRef.current = gsap.to(track, {
+            x: -loopWidth,
+            duration,
+            ease: "none",
+            repeat: -1,
+            modifiers: {
+              x: (value) => {
+                const current = parseFloat(value);
+                if (!loopWidth || Number.isNaN(current)) return value;
+                let mod = current % -loopWidth;
+                if (mod > 0) mod -= loopWidth;
+                return `${mod}px`;
+              },
+            },
+          });
+        };
+
+        if (prefersReducedMotion.matches) {
+          teardownTween();
+        } else {
+          setupTween();
+        }
+
+        const handleResize = () => {
+          if (prefersReducedMotion.matches) return;
+          setupTween();
+        };
+
+        window.addEventListener("resize", handleResize);
+        ScrollTrigger.addEventListener("refreshInit", handleResize);
+
+        let motionHandler: ((event: MediaQueryListEvent) => void) | null = null;
+        if (typeof prefersReducedMotion.addEventListener === "function") {
+          motionHandler = (event) => {
+            if (event.matches) {
+              teardownTween();
+            } else {
+              setupTween();
+            }
+          };
+          prefersReducedMotion.addEventListener("change", motionHandler);
+        }
+
+        const carousel = track.closest<HTMLElement>(".community-scroll__mobile-carousel");
+        const handlePointerEnter = () => mobileTweenRef.current?.timeScale(0.35);
+        const handlePointerLeave = () => mobileTweenRef.current?.timeScale(1);
+
+        if (carousel && !prefersReducedMotion.matches) {
+          carousel.addEventListener("pointerenter", handlePointerEnter);
+          carousel.addEventListener("pointerleave", handlePointerLeave);
+          carousel.addEventListener("pointerdown", handlePointerEnter);
+          carousel.addEventListener("pointerup", handlePointerLeave);
+        }
+
+        requestAnimationFrame(() => {
+          if (!prefersReducedMotion.matches) setupTween();
         });
-      }
+
+        return () => {
+          window.removeEventListener("resize", handleResize);
+          ScrollTrigger.removeEventListener("refreshInit", handleResize);
+
+          if (motionHandler && typeof prefersReducedMotion.removeEventListener === "function") {
+            prefersReducedMotion.removeEventListener("change", motionHandler);
+          }
+
+          if (carousel && !prefersReducedMotion.matches) {
+            carousel.removeEventListener("pointerenter", handlePointerEnter);
+            carousel.removeEventListener("pointerleave", handlePointerLeave);
+            carousel.removeEventListener("pointerdown", handlePointerEnter);
+            carousel.removeEventListener("pointerup", handlePointerLeave);
+          }
+
+          teardownTween();
+        };
+      });
 
       mm.add("(min-width: 1024px)", () => {
         const pictures = gsap.utils.toArray<HTMLElement>(".community-scroll__picture");
@@ -293,6 +397,9 @@ export default function CommunitySection() {
     };
   }, []);
 
+  const baseStoryCount = communityStories.length;
+  const mobileCarouselItems = [...communityStories, ...communityStories];
+
   return (
     <section
       id="community"
@@ -342,11 +449,39 @@ export default function CommunitySection() {
         </div>
 
         <div className="community-scroll__mobile">
-          {communityStories.map((story, index) => (
-            <p key={story.id} className={`community-scroll__mobile-story community-scroll__mobile-story--${ordinalClass[index]}`}>
-              {story.title}
+          <div className="community-scroll__mobile-top">
+            <span className="community-scroll__mobile-kicker">Swipe to explore</span>
+            <p className="community-scroll__mobile-subtitle">
+              Glimpses of gentle community care designed for smaller screens.
             </p>
-          ))}
+          </div>
+
+          <div className="community-scroll__mobile-carousel">
+            <div className="community-scroll__mobile-track" ref={mobileTrackRef}>
+              {mobileCarouselItems.map((story, index) => {
+                const isDuplicate = index >= baseStoryCount;
+                return (
+                  <article
+                    key={`${story.id}-${index}`}
+                    className="community-scroll__mobile-card"
+                    aria-hidden={isDuplicate ? "true" : undefined}
+                  >
+                    <div className="community-scroll__mobile-media">
+                      <img src={story.image.src} alt={story.image.alt} loading="lazy" />
+                    </div>
+                    <div className="community-scroll__mobile-content">
+                      <p className="community-scroll__mobile-meta">{story.date}</p>
+                      <h3>{story.title}</h3>
+                      <p className="community-scroll__mobile-accent">{story.accent}</p>
+                      <p className="community-scroll__mobile-body">{story.description}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+            <div className="community-scroll__mobile-fade community-scroll__mobile-fade--left" aria-hidden="true" />
+            <div className="community-scroll__mobile-fade community-scroll__mobile-fade--right" aria-hidden="true" />
+          </div>
         </div>
       </div>
 
