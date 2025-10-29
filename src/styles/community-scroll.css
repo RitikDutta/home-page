@@ -155,34 +155,6 @@
   padding-bottom: clamp(4rem, 16vw, 6.5rem);
 }
 
-.community-scroll__mobile-top {
-  display: grid;
-  gap: 0.75rem;
-  text-align: center;
-}
-
-.community-scroll__mobile-kicker {
-  display: inline-flex;
-  align-self: center;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.95rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.68);
-  color: #264255;
-  font-size: 0.7rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-}
-
-.community-scroll__mobile-subtitle {
-  font-size: clamp(1rem, 3.8vw, 1.25rem);
-  line-height: 1.6;
-  color: rgba(21, 32, 43, 0.78);
-  margin: 0 auto;
-  max-width: 26rem;
-}
-
 .community-scroll__mobile-carousel {
   position: relative;
   overflow: hidden;

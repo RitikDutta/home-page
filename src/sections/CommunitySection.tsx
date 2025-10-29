@@ -153,6 +153,7 @@ export default function CommunitySection() {
           }
 
           gsap.set(track, { x: 0 });
+          gsap.set(track, { x: 0 });
           mobileTweenRef.current?.kill();
 
           const duration = Math.max(28, loopWidth / 60);
