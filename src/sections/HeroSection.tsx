@@ -429,7 +429,7 @@ export default function HeroSection() {
                 Available for collaborations
               </span>
               <span className="hero-pill-badge inline-flex items-center px-4 py-2 rounded-full bg-white/60 border border-white/80 text-[0.6rem] sm:text-xs uppercase tracking-[0.3em] text-[#454545] font-['Karla']">
-                Based in Kolkata, India
+                Based in Ajmer, India
               </span>
             </div>
 
