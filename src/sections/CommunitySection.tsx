@@ -450,13 +450,6 @@ export default function CommunitySection() {
         </div>
 
         <div className="community-scroll__mobile">
-          <div className="community-scroll__mobile-top">
-            <span className="community-scroll__mobile-kicker">Swipe to explore</span>
-            <p className="community-scroll__mobile-subtitle">
-              Glimpses of gentle community care designed for smaller screens.
-            </p>
-          </div>
-
           <div className="community-scroll__mobile-carousel">
             <div className="community-scroll__mobile-track" ref={mobileTrackRef}>
               {mobileCarouselItems.map((story, index) => {
