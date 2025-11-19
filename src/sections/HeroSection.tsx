@@ -10,9 +10,10 @@ import { GithubIcon, LinkedinIcon, TwitterIcon } from "../components/icons/Socia
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement | null>(null);
+  const imageContainerRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const nameRef = useRef<HTMLHeadingElement | null>(null);
-  const logoRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   const firstName = "Ritik";
   const lastName = "Dutta";
@@ -22,7 +23,7 @@ export default function HeroSection() {
       firstName.split("").map((char, i) => (
         <span
           key={`first-${i}`}
-          className="inline-block hero-name-char opacity-0 translate-y-4"
+          className="inline-block hero-name-char opacity-0 translate-y-12 rotate-6 origin-bottom-left"
         >
           {char === " " ? "\u00A0" : char}
         </span>
@@ -35,7 +36,7 @@ export default function HeroSection() {
       lastName.split("").map((char, i) => (
         <span
           key={`last-${i}`}
-          className="inline-block hero-name-char opacity-0 translate-y-4"
+          className="inline-block hero-name-char opacity-0 translate-y-12 rotate-6 origin-bottom-left"
         >
           {char === " " ? "\u00A0" : char}
         </span>
@@ -45,283 +46,135 @@ export default function HeroSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.35 });
+      const tl = gsap.timeline({ delay: 0.2 });
 
+      // 1. Background Elements Entrance
       tl.fromTo(
-        ".hero-orb",
-        { opacity: 0, scale: 0.85 },
-        {
-          opacity: 0.8,
-          scale: 1,
-          duration: 1.4,
-          ease: "power3.out",
-          stagger: 0.2,
-        }
+        ".hero-orb-primary",
+        { opacity: 0, scale: 0.5, x: -50 },
+        { opacity: 0.6, scale: 1, x: 0, duration: 1.8, ease: "power3.out" }
       )
-        .fromTo(
-          ".background-about-text",
-          { opacity: 0, y: 20, scale: 1.08 },
-          {
-            opacity: 0.45,
-            y: 0,
-            scale: 1,
-            duration: 1.4,
-            ease: "power3.out",
-          },
-          0
-        )
-        .fromTo(
-          logoRef.current,
-          { opacity: 0, y: -25, rotate: -10 },
-          {
-            opacity: 1,
-            y: 0,
-            rotate: 0,
-            duration: 0.9,
-            ease: "elastic.out(1, 0.7)",
-          },
-          0.2
-        )
-        .fromTo(
-          ".hero-glass-card",
-          { y: 30, opacity: 0, filter: "blur(4px)" },
-          {
-            y: 0,
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 1.1,
-            ease: "power3.out",
-          },
-          0.35
-        )
-        .fromTo(
-          imageRef.current,
-          { yPercent: 18, opacity: 0, scale: 0.92 },
-          {
-            yPercent: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 1.3,
-            ease: "expo.out",
-          },
-          0.45
-        )
-        .to(
-          ".hero-name-char",
-          {
-            opacity: 1,
-            y: 0,
-            stagger: 0.05,
-            duration: 0.7,
-            ease: "back.out(1.5)",
-          },
-          0.6
-        )
-        .fromTo(
-          ".hero-pill-intro, .hero-keypoints li",
-          { opacity: 0, y: 18 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            stagger: 0.1,
-          },
-          0.75
-        )
-        .fromTo(
-          ".hero-description-new",
-          { opacity: 0, y: 35 },
-          { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
-          0.9
-        )
-        .from(
-          ".hero-pill-badge",
-          {
-            y: 18,
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.6,
-            ease: "back.out(1.4)",
-          },
-          1.05
-        )
-        .from(
-          ".hero-buttons > *",
-          {
-            y: 25,
-            opacity: 0,
-            scale: 0.9,
-            stagger: 0.12,
-            duration: 0.7,
-            ease: "back.out(1.6)",
-          },
-          1.1
-        )
-        .from(
-          ".hero-stat",
-          {
-            y: 18,
-            opacity: 0,
-            stagger: 0.14,
-            duration: 0.7,
-            ease: "power3.out",
-          },
-          1.2
-        )
-        .from(
-          ".hero-floating-card",
-          {
-            y: 25,
-            opacity: 0,
-            scale: 0.95,
-            stagger: 0.15,
-            duration: 0.8,
-            ease: "back.out(1.4)",
-          },
-          1.25
-        )
-        .from(
-          ".hero-scroll-indicator",
-          { opacity: 0, y: 16, duration: 0.7, ease: "power2.out" },
-          1.35
-        )
-        .from(
-          ".social-icons a",
-          {
-            y: 25,
-            opacity: 0,
-            scale: 0.8,
-            stagger: 0.1,
-            duration: 0.6,
-            ease: "back.out(1.7)",
-          },
-          1.35
-        );
+      .fromTo(
+        ".hero-orb-secondary",
+        { opacity: 0, scale: 0.5, x: 50 },
+        { opacity: 0.5, scale: 1, x: 0, duration: 1.8, ease: "power3.out" },
+        "<0.2"
+      )
+      .fromTo(
+        ".hero-grid-lines",
+        { opacity: 0 },
+        { opacity: 0.4, duration: 2, ease: "power2.inOut" },
+        "<"
+      );
 
-      gsap.to(".background-about-text", {
-        yPercent: 100,
+      // 2. Main Content Entrance
+      tl.fromTo(
+        imageContainerRef.current,
+        { opacity: 0, scale: 0.9, y: 40, rotationY: 15 },
+        { opacity: 1, scale: 1, y: 0, rotationY: 0, duration: 1.4, ease: "power3.out" },
+        "-=1.2"
+      )
+      .fromTo(
+        ".hero-glass-panel",
+        { opacity: 0, y: 30, backdropFilter: "blur(0px)" },
+        { opacity: 1, y: 0, backdropFilter: "blur(16px)", duration: 1.2, ease: "power3.out" },
+        "-=1"
+      );
+
+      // 3. Typography Reveal
+      tl.to(
+        ".hero-name-char",
+        {
+          opacity: 1,
+          y: 0,
+          rotate: 0,
+          stagger: 0.04,
+          duration: 0.8,
+          ease: "back.out(1.7)",
+        },
+        "-=0.8"
+      )
+      .fromTo(
+        ".hero-role-pill",
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" },
+        "-=0.6"
+      )
+      .fromTo(
+        ".hero-description",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        "-=0.6"
+      );
+
+      // 4. Interactive Elements
+      tl.fromTo(
+        ".hero-action-btn",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, stagger: 0.1, duration: 0.6, ease: "back.out(1.5)" },
+        "-=0.4"
+      )
+      .fromTo(
+        ".hero-stat-item",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, stagger: 0.1, duration: 0.8, ease: "power2.out" },
+        "-=0.4"
+      )
+      .fromTo(
+        ".social-link",
+        { opacity: 0, scale: 0.5 },
+        { opacity: 1, scale: 1, stagger: 0.1, duration: 0.6, ease: "back.out(2)" },
+        "-=0.4"
+      );
+
+      // 5. Floating Cards
+      tl.fromTo(
+        ".hero-float-card",
+        { opacity: 0, y: 40, scale: 0.8 },
+        { opacity: 1, y: 0, scale: 1, stagger: 0.2, duration: 1, ease: "elastic.out(1, 0.8)" },
+        "-=0.2"
+      );
+
+      // Parallax Effect on Scroll
+      gsap.to(".hero-bg-parallax", {
+        yPercent: 30,
         ease: "none",
         scrollTrigger: {
           trigger: heroRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: 1.5,
-          invalidateOnRefresh: true,
+          scrub: true,
         },
       });
 
-      heroRef.current
-        ?.querySelectorAll(".hero-buttons a")
-        .forEach((button) => {
-          const isPrimary = button.classList.contains("btn-primary");
-          const hoverBg = isPrimary ? "#E55A5A" : "#F0F0F0";
-          const hoverColor = isPrimary ? "#FFFFFF" : "#FF6B6B";
-          const hoverBorder = isPrimary ? "transparent" : "#FF6B6B";
-          const hoverShadow = "0 4px 15px -3px rgba(0,0,0,0.1)";
-          const tlBtn = gsap.timeline({ paused: true });
-          tlBtn.to(button, {
-            y: -3,
-            scale: 1.03,
-            backgroundColor: hoverBg,
-            borderColor: hoverBorder,
-            color: hoverColor,
-            boxShadow: hoverShadow,
-            duration: 0.25,
-            ease: "power1.out",
-          });
+      // Mouse Move Parallax for Image
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!imageContainerRef.current) return;
+        const { clientX, clientY } = e;
+        const { innerWidth, innerHeight } = window;
+        const xPos = (clientX / innerWidth - 0.5) * 20;
+        const yPos = (clientY / innerHeight - 0.5) * 20;
 
-          button.addEventListener("mouseenter", () => tlBtn.play());
-          button.addEventListener("mouseleave", () => tlBtn.reverse());
-          button.addEventListener("mousedown", () =>
-            gsap.to(button, { scale: 0.98, duration: 0.1 })
-          );
-          button.addEventListener("mouseup", () =>
-            gsap.to(button, { scale: 1.03, duration: 0.2 })
-          );
-          button.addEventListener("mouseleave", () => {
-            if (
-              !tlBtn.isActive() &&
-              (gsap.getProperty(button, "scale") < 1 ||
-                gsap.getProperty(button, "scale") > 1)
-            ) {
-              gsap.to(button, { scale: 1, y: 0, duration: 0.2 });
-            }
-          });
+        gsap.to(imageContainerRef.current, {
+          rotationY: xPos,
+          rotationX: -yPos,
+          duration: 1,
+          ease: "power2.out",
         });
-
-      heroRef.current
-        ?.querySelectorAll(".social-icons a")
-        .forEach((icon) => {
-          const svg = icon.querySelector("svg");
-          const hoverColor = icon.dataset.hoverColor || "#3B82F6";
-          const iconTl = gsap.timeline({ paused: true });
-          iconTl
-            .to(
-              icon,
-              { y: -5, scale: 1.15, duration: 0.3, ease: "back.out(2)" },
-              0
-            )
-            .to(
-              svg,
-              { color: hoverColor, duration: 0.3, ease: "power1.out" },
-              0
-            );
-          icon.addEventListener("mouseenter", () => iconTl.play());
-          icon.addEventListener("mouseleave", () => iconTl.reverse());
+        
+        gsap.to(".hero-orb-primary", {
+          x: xPos * 2,
+          y: yPos * 2,
+          duration: 2,
+          ease: "power2.out",
         });
+      };
 
-      const logo = logoRef.current;
-      if (logo) {
-        const logoTl = gsap.timeline({ paused: true });
-        logoTl
-          .to(logo, {
-            x: "+=2",
-            y: "-=1",
-            rotate: 1,
-            duration: 0.05,
-            ease: "steps(1)",
-          })
-          .to(logo, {
-            x: "-=3",
-            y: "+=2",
-            rotate: -1.5,
-            duration: 0.05,
-            ease: "steps(1)",
-          })
-          .to(logo, {
-            x: "+=1",
-            y: "-=1",
-            rotate: 0.5,
-            duration: 0.05,
-            ease: "steps(1)",
-          })
-          .to(logo, {
-            x: 0,
-            y: 0,
-            rotate: 0,
-            duration: 0.05,
-            ease: "steps(1)",
-          })
-          .to(logo, { filter: "brightness(1.2)", duration: 0.1 }, 0)
-          .to(
-            logo,
-            { scale: 1.05, duration: 0.15, ease: "power1.out" },
-            0
-          );
+      window.addEventListener("mousemove", handleMouseMove);
 
-        logo.addEventListener("mouseenter", () => logoTl.play(0));
-        logo.addEventListener("mouseleave", () => {
-          gsap.to(logo, { x: 0, y: 0, rotate: 0, duration: 0.1 });
-          gsap.to(logo, {
-            filter: "brightness(1)",
-            scale: 1,
-            duration: 0.3,
-            ease: "power1.inOut",
-            delay: 0.05,
-          });
-        });
-      }
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+      };
     }, heroRef);
 
     return () => ctx.revert();
@@ -331,197 +184,117 @@ export default function HeroSection() {
     <section
       id="hero"
       ref={heroRef}
-      className="relative min-h-screen flex flex-col justify-center items-center text-center md:text-left px-6 sm:px-8 lg:px-12 pt-24 pb-16 md:py-24 overflow-hidden bg-gradient-to-b from-white via-white/95 to-[#FFF7F4]"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-white via-[#fffbf9] to-[#fff0eb] pt-20 pb-12"
     >
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="hero-orb absolute -top-32 right-[-12%] w-[320px] sm:w-[380px] aspect-square rounded-full blur-3xl opacity-60 animate-hero-pulse hidden md:block"
-          style={{
-            background:
-              "radial-gradient(circle at 30% 30%, rgba(255, 107, 107, 0.45), rgba(255, 194, 163, 0.08), transparent 65%)",
-          }}
-        />
-        <div
-          className="hero-orb absolute bottom-[-18%] left-[-10%] w-[300px] sm:w-[360px] aspect-square rounded-full blur-3xl opacity-60 animate-hero-pulse hidden md:block"
-          style={{
-            background:
-              "radial-gradient(circle at 70% 70%, rgba(255, 209, 102, 0.4), rgba(255, 255, 255, 0.08), transparent 70%)",
-          }}
-        />
-        <div className="hero-orb absolute inset-x-1/4 top-[22%] h-[420px] rounded-full border border-white/60 bg-white/30 mix-blend-lighten opacity-60 animate-hero-float-delay hidden md:block" />
-        <div className="background-about-text hidden md:block text-[20vw] sm:text-[16vw] md:text-[12vw] font-bold text-[#F1F1F1] uppercase tracking-[0.2em] md:tracking-[0.3em] leading-none select-none">
-          Ritik Dutta
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="hero-bg-parallax absolute inset-0">
+          <div className="hero-orb-primary absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#FF6B6B]/20 to-[#FFC65C]/20 blur-[100px]" />
+          <div className="hero-orb-secondary absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-[#FF9E7C]/20 to-[#FF6B6B]/15 blur-[80px]" />
+          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] hero-grid-lines" />
         </div>
+        <div className="bg-grain" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-12 md:gap-14 xl:gap-20 items-center md:items-start">
-        <div className="order-1 md:order-2 md:w-1/2 flex justify-center md:justify-start mt-4 md:mt-0">
-          <div className="relative w-full max-w-[320px] sm:max-w-[360px] md:max-w-[420px]">
-            <div className="pointer-events-none absolute -inset-8 rounded-[32px] border border-white/40 bg-gradient-to-br from-white/30 via-white/5 to-transparent blur-sm mix-blend-lighten" />
-            <div className="hero-image-container relative w-full aspect-[3/4] overflow-hidden rounded-[30px] border border-white/60 bg-white/70 shadow-xl backdrop-blur-xl">
-              <img
-                ref={imageRef}
-                src="/me.gif"
-                alt="Ritik Dutta"
-                className="w-full h-full opacity-0 transform-gpu transition-transform duration-700 ease-out hover:scale-[1.04]"
-              />
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+          
+          {/* Left Content */}
+          <div ref={contentRef} className="flex-1 text-center lg:text-left order-2 lg:order-1">
+            <div className="hero-glass-panel inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 border border-white/60 backdrop-blur-md mb-8 hero-role-pill">
+              <span className="w-2 h-2 rounded-full bg-[#FF6B6B] animate-pulse" />
+              <span className="text-xs font-bold tracking-widest uppercase text-[#FF6B6B]">
+                Creative Technologist
+              </span>
             </div>
-            <div className="hero-floating-card absolute -left-10 sm:-left-12 top-100 hidden sm:flex items-center gap-3 rounded-2xl bg-white/85 px-4 py-3 shadow-lg border border-white/60 backdrop-blur-lg animate-hero-float-slow">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF6B6B]/10 border border-[#FF6B6B]/30">
-                <span className="h-2 w-2 rounded-full bg-[#FF6B6B]" />
-              </div>
-              <div className="flex flex-col text-left font-['Karla']">
-                <span className="text-[0.6rem] uppercase tracking-[0.35em] text-[#FF6B6B]">
-                  Now
-                </span>
-                <span className="text-sm font-semibold text-[#2E2E2E] leading-tight">
-                  Exploring multimodal agents
-                </span>
-              </div>
-            </div>
-            <div className="hero-floating-card absolute -right-6 sm:-right-10 bottom-8 hidden sm:flex items-center gap-3 rounded-2xl bg-[#111827] px-4 py-3 shadow-2xl border border-white/20 text-white backdrop-blur-sm animate-hero-float-delay">
-              <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#FF6B6B] to-[#FFB199] flex items-center justify-center text-xs font-semibold tracking-[0.2em]">
-                RD
-              </div>
-              <div className="flex flex-col text-left font-['Karla']">
-                <span className="text-[0.6rem] uppercase tracking-[0.35em] text-white/60">
-                  Recent
-                </span>
-                <span className="text-sm font-semibold leading-tight">
-                  Agentic storytelling lab
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="order-2 md:order-1 md:w-1/2 flex flex-col justify-center relative text-center md:text-left">
-          <div className="hero-glass-card relative flex flex-col gap-6 md:gap-7 bg-white/75 border border-white/60 rounded-[28px] px-6 py-7 sm:px-8 sm:py-9 shadow-lg backdrop-blur-xl">
-            <span className="hero-pill-intro inline-flex items-center justify-center md:justify-start px-4 py-2 rounded-full bg-[#FF6B6B]/10 border border-[#FF6B6B]/30 text-[0.6rem] sm:text-xs uppercase tracking-[0.3em] text-[#FF6B6B] font-['Karla']">
-              Creative Technologist & Storyteller
-            </span>
-            <h1
-              ref={nameRef}
-              className="hero-name-new font-['Playfair Display'] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-black leading-tight"
-            >
-              {firstNameSpans} {lastNameSpans}
+            <h1 ref={nameRef} className="text-5xl sm:text-6xl md:text-7xl font-serif font-medium text-[#1a1a1a] leading-[1.1] mb-6 tracking-tight">
+              <div className="overflow-hidden pb-2">{firstNameSpans}</div>
+              <div className="overflow-hidden pb-2 text-[#4a4a4a]">{lastNameSpans}</div>
             </h1>
 
-            <p className="hero-description-new font-['Karla'] text-base md:text-lg text-[#464646] leading-relaxed opacity-0">
-              A tech explorer blending logic with playful storytelling. I help
-              teams experiment fast, build intelligent products, and ship human
-              moments into ambitious AI, IoT, and web journeys.
+            <p className="hero-description text-lg md:text-xl text-[#5a5a5a] leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-10 font-sans">
+              Blending <span className="text-[#FF6B6B] font-medium">logic</span> with playful storytelling. 
+              I build intelligent products and cinematic web experiences that invite curiosity.
             </p>
 
-            <ul className="hero-keypoints flex flex-col gap-2 font-['Karla'] text-[#363636] text-sm sm:text-base">
-              <li className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#FF6B6B]" />
-                AI-first product strategy & automation pipelines
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#FF6B6B]" />
-                Immersive interfaces that feel cinematic yet practical
-              </li>
-            </ul>
-
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3">
-              <span className="hero-pill-badge inline-flex items-center px-4 py-2 rounded-full bg-[#FF6B6B]/10 border border-[#FF6B6B]/30 text-[0.6rem] sm:text-xs uppercase tracking-[0.3em] text-[#FF6B6B] font-['Karla']">
-                Available for collaborations
-              </span>
-              <span className="hero-pill-badge inline-flex items-center px-4 py-2 rounded-full bg-white/60 border border-white/80 text-[0.6rem] sm:text-xs uppercase tracking-[0.3em] text-[#454545] font-['Karla']">
-                Based in Ajmer, India
-              </span>
-            </div>
-
-            <div className="hero-buttons flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-3 sm:gap-4">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-12">
               <a
-                href="https://slides.ritikdutta.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="btn-primary px-6 py-2.5 sm:px-7 sm:py-2.5 w-full max-w-[280px] sm:max-w-none sm:w-auto text-center bg-[#FF6B6B] text-white rounded-full text-sm md:text-base font-semibold shadow-md hover:shadow-lg transition-shadow duration-300"
+                href="#projects"
+                className="hero-action-btn btn-primary px-8 py-3.5 bg-[#FF6B6B] text-white rounded-full font-semibold shadow-lg shadow-[#FF6B6B]/25 hover:shadow-xl hover:shadow-[#FF6B6B]/40 hover:-translate-y-1 transition-all duration-300"
               >
-                Slides
+                View Projects
               </a>
               <a
                 href="https://docs.ritikdutta.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="px-6 py-2.5 sm:px-7 sm:py-2.5 w-full max-w-[280px] sm:max-w-none sm:w-auto text-center bg-transparent text-[#FF6B6B] rounded-full border-2 border-[#FF6B6B] text-sm md:text-base font-semibold hover:bg-[#FF6B6B]/10 transition-colors duration-300"
+                className="hero-action-btn px-8 py-3.5 bg-white text-[#4a4a4a] border border-[#e0e0e0] rounded-full font-semibold hover:border-[#FF6B6B] hover:text-[#FF6B6B] hover:-translate-y-1 transition-all duration-300"
               >
                 System Designs
               </a>
-              <a
-                href="https://notebooks.ritikdutta.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="px-6 py-2.5 sm:px-7 sm:py-2.5 w-full max-w-[280px] sm:max-w-none sm:w-auto text-center bg-transparent text-[#FF6B6B] rounded-full border-2 border-[#FF6B6B] text-sm md:text-base font-semibold hover:bg-[#FF6B6B]/10 transition-colors duration-300"
-              >
-                Notebooks
-              </a>
+            </div>
+
+            <div className="flex items-center justify-center lg:justify-start gap-8 border-t border-[#000000]/5 pt-8">
+              <div className="hero-stat-item text-center lg:text-left">
+                <div className="text-2xl font-bold text-[#1a1a1a]">3+</div>
+                <div className="text-xs uppercase tracking-wider text-[#888]">Years Exp.</div>
+              </div>
+              <div className="hero-stat-item text-center lg:text-left">
+                <div className="text-2xl font-bold text-[#1a1a1a]">15+</div>
+                <div className="text-xs uppercase tracking-wider text-[#888]">Projects</div>
+              </div>
+              <div className="flex gap-4 ml-auto lg:ml-8">
+                 <a href="https://github.com/RitikDutta" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#1a1a1a] transition-colors"><GithubIcon /></a>
+                 <a href="https://www.linkedin.com/in/ritikdutta/" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#0077b5] transition-colors"><LinkedinIcon /></a>
+                 <a href="https://x.com/RitikDutta7" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#1DA1F2] transition-colors"><TwitterIcon /></a>
+              </div>
             </div>
           </div>
 
-          <div className="hero-stats-grid grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mt-6 md:mt-8">
-            <div className="hero-stat rounded-2xl bg-white/70 border border-white/60 px-5 py-6 shadow-md backdrop-blur-xl text-left">
-              <p className="text-xs uppercase tracking-[0.3em] text-[#FF6B6B]/80 mb-3 font-['Karla']">
-                Focus
-              </p>
-              <p className="font-['Karla'] text-sm sm:text-base text-[#2F2F2F] leading-relaxed">
-                Shipping AI-led tools, smart environments, and cinematic web
-                experiences that invite curiosity.
-              </p>
-            </div>
-            <div className="hero-stat rounded-2xl bg-white/70 border border-white/60 px-5 py-6 shadow-md backdrop-blur-xl text-left">
-              <p className="text-xs uppercase tracking-[0.3em] text-[#FF6B6B]/80 mb-3 font-['Karla']">
-                Latest
-              </p>
-              <p className="font-['Karla'] text-sm sm:text-base text-[#2F2F2F] leading-relaxed">
-                Rapid prototyping an agentic toolkit and audiovisual stories to
-                make complex tech delightful.
-              </p>
-            </div>
-          </div>
+          {/* Right Image Area */}
+          <div className="flex-1 relative order-1 lg:order-2 flex justify-center lg:justify-end perspective-1000">
+            <div 
+              ref={imageContainerRef}
+              className="relative w-full max-w-[480px] aspect-[4/5] transform-style-3d"
+            >
+              <div className="absolute inset-4 bg-gradient-to-tr from-[#FF6B6B] to-[#FFC65C] rounded-[32px] blur-2xl opacity-40 animate-hero-pulse" />
+              
+              <div className="relative h-full w-full rounded-[32px] overflow-hidden border border-white/40 shadow-2xl shadow-[#FF6B6B]/10 bg-white/20 backdrop-blur-sm">
+                <img
+                  ref={imageRef}
+                  src="/me.gif"
+                  alt="Ritik Dutta"
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Floating Cards Overlay */}
+                <div className="hero-float-card absolute top-8 right-[-20px] glass-panel p-4 rounded-2xl flex items-center gap-3 max-w-[200px] animate-hero-float-slow">
+                  <div className="w-10 h-10 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center text-xl">🚀</div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-[#888] font-bold">Currently</div>
+                    <div className="text-xs font-semibold text-[#333]">Building Agents</div>
+                  </div>
+                </div>
 
-          <div className="social-icons mt-8 flex space-x-6 sm:space-x-8 md:space-x-10 justify-center md:justify-start">
-            <a
-              href="https://github.com/RitikDutta"
-              target="_blank"
-              rel="noreferrer"
-              data-hover-color="#181717"
-              className="relative group"
-              aria-label="GitHub"
-            >
-              <GithubIcon />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/ritikdutta/"
-              target="_blank"
-              rel="noreferrer"
-              data-hover-color="#0A66C2"
-              className="relative group"
-              aria-label="LinkedIn"
-            >
-              <LinkedinIcon />
-            </a>
-            <a
-              href="https://x.com/RitikDutta7"
-              target="_blank"
-              rel="noreferrer"
-              data-hover-color="#1DA1F2"
-              className="relative group"
-              aria-label="Twitter"
-            >
-              <TwitterIcon />
-            </a>
+                <div className="hero-float-card absolute bottom-12 left-[-20px] glass-panel p-4 rounded-2xl flex items-center gap-3 max-w-[200px] animate-hero-float-delay">
+                  <div className="w-10 h-10 rounded-full bg-[#FFC65C]/10 flex items-center justify-center text-xl">✨</div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-[#888] font-bold">Focus</div>
+                    <div className="text-xs font-semibold text-[#333]">Cinematic UI</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          
         </div>
       </div>
 
-      <div className="hero-scroll-indicator pointer-events-none absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 font-['Karla'] text-[0.6rem] uppercase tracking-[0.3em] text-[#8A8A8A]">
-        <div className="relative h-12 w-[2px] overflow-hidden rounded-full bg-gradient-to-b from-transparent via-[#FF6B6B]/40 to-[#FF6B6B]">
-          <span className="absolute top-0 left-0 right-0 h-1/3 bg-[#FF6B6B] animate-hero-scroll" />
-        </div>
-        <span>Scroll</span>
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-bounce">
+        <span className="text-[10px] uppercase tracking-[0.2em] text-[#888]">Scroll</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-[#FF6B6B] to-transparent" />
       </div>
     </section>
   );
