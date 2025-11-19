@@ -6,7 +6,7 @@
  */
 import { useEffect, useMemo, useRef } from "react";
 import { gsap, ScrollTrigger } from "../lib/gsap";
-import { GithubIcon, LinkedinIcon, TwitterIcon } from "../components/icons/SocialIcons";
+import { GithubIcon, LinkedinIcon, TwitterIcon, MediumIcon, KaggleIcon } from "../components/icons/SocialIcons";
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement | null>(null);
@@ -138,6 +138,37 @@ export default function HeroSection() {
         );
       }
 
+      // 6. Fun Stats Animation (Rolling Numbers) - Triggered after entrance
+      tl.call(() => {
+        const stats = heroRef.current?.querySelectorAll(".stat-number");
+        if (stats) {
+          stats.forEach((stat) => {
+            const target = parseFloat(stat.getAttribute("data-target") || "0");
+            const proxy = { val: 0 };
+
+            // Professional "Charge Up" Animation
+            gsap.to(proxy, {
+              val: target,
+              duration: 2.2,
+              ease: "power3.out", // Smooth deceleration
+              onUpdate: () => {
+                stat.innerHTML = Math.floor(proxy.val) + "+";
+              },
+            });
+
+            // Subtle Color Transition (Muted -> Sharp)
+            gsap.fromTo(stat,
+              { color: "#888888" },
+              {
+                color: "#1a1a1a",
+                duration: 2.2,
+                ease: "power3.out"
+              }
+            );
+          });
+        }
+      }, null, "-=0.5");
+
       // Parallax Effect on Scroll
       gsap.to(".hero-bg-parallax", {
         yPercent: 30,
@@ -236,21 +267,53 @@ export default function HeroSection() {
               >
                 System Designs
               </a>
+              <a
+                href="https://slides.ritikdutta.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="hero-action-btn px-6 py-3 md:px-8 md:py-3.5 bg-white text-[#4a4a4a] border border-[#e0e0e0] rounded-full text-sm md:text-base font-semibold hover:border-[#FF6B6B] hover:text-[#FF6B6B] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
+              >
+                Slides
+              </a>
+              <a
+                href="https://notebooks.ritikdutta.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="hero-action-btn px-6 py-3 md:px-8 md:py-3.5 bg-white text-[#4a4a4a] border border-[#e0e0e0] rounded-full text-sm md:text-base font-semibold hover:border-[#FF6B6B] hover:text-[#FF6B6B] hover:-translate-y-1 transition-all duration-300 w-full sm:w-auto"
+              >
+                Notebooks
+              </a>
             </div>
 
-            <div className="flex items-center justify-center lg:justify-start gap-6 md:gap-8 border-t border-[#000000]/5 pt-6 md:pt-8">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 md:gap-8 border-t border-[#000000]/5 pt-6 md:pt-8">
               <div className="hero-stat-item text-center lg:text-left">
-                <div className="text-xl md:text-2xl font-bold text-[#1a1a1a]">3+</div>
-                <div className="text-[10px] md:text-xs uppercase tracking-wider text-[#888]">Years Exp.</div>
+                <div className="text-xl md:text-2xl font-bold text-[#1a1a1a] stat-number" data-target="6">0+</div>
+                <div className="text-[10px] md:text-xs uppercase tracking-wider text-[#888]">ML/AI Exp.</div>
               </div>
               <div className="hero-stat-item text-center lg:text-left">
-                <div className="text-xl md:text-2xl font-bold text-[#1a1a1a]">15+</div>
+                <div className="text-xl md:text-2xl font-bold text-[#1a1a1a] stat-number" data-target="3">0+</div>
+                <div className="text-[10px] md:text-xs uppercase tracking-wider text-[#888]">Gen AI Exp.</div>
+              </div>
+              <div className="hero-stat-item text-center lg:text-left">
+                <div className="text-xl md:text-2xl font-bold text-[#1a1a1a] stat-number" data-target="15">0+</div>
                 <div className="text-[10px] md:text-xs uppercase tracking-wider text-[#888]">Projects</div>
               </div>
-              <div className="flex gap-4 ml-auto lg:ml-8">
-                <a href="https://github.com/RitikDutta" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#1a1a1a] transition-colors"><GithubIcon /></a>
-                <a href="https://www.linkedin.com/in/ritikdutta/" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#0077b5] transition-colors"><LinkedinIcon /></a>
-                <a href="https://x.com/RitikDutta7" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#1DA1F2] transition-colors"><TwitterIcon /></a>
+              <div className="flex gap-4 ml-auto lg:ml-8 w-full lg:w-auto justify-center lg:justify-end mt-4 lg:mt-0">
+                <a href="https://github.com/RitikDutta" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#000000] transition-colors group" aria-label="GitHub">
+                  <GithubIcon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-transform group-hover:scale-110" />
+                </a>
+                <a href="https://www.linkedin.com/in/ritikdutta/" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#0077b5] transition-colors group" aria-label="LinkedIn">
+                  <LinkedinIcon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-transform group-hover:scale-110" />
+                </a>
+                <a href="https://x.com/RitikDutta7" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#1DA1F2] transition-colors group" aria-label="Twitter">
+                  <TwitterIcon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-transform group-hover:scale-110" />
+                </a>
+                <a href="https://ritikdutta-com.medium.com/" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#000000] transition-colors group" aria-label="Medium">
+                  <MediumIcon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-transform group-hover:scale-110" />
+                </a>
+                <a href="https://www.kaggle.com/ritikduttads" target="_blank" rel="noreferrer" className="social-link text-[#4a4a4a] hover:text-[#20BEFF] transition-colors group" aria-label="Kaggle">
+                  <KaggleIcon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-transform group-hover:scale-110" />
+                </a>
               </div>
             </div>
           </div>
@@ -263,29 +326,29 @@ export default function HeroSection() {
             >
               <div className="absolute inset-4 bg-gradient-to-tr from-[#FF6B6B] to-[#FFC65C] rounded-[32px] blur-2xl opacity-40 animate-hero-pulse" />
 
-              <div className="relative h-full w-full rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/40 shadow-2xl shadow-[#FF6B6B]/10 bg-white/20 backdrop-blur-sm">
+              <div className="relative h-full w-full rounded-[24px] md:rounded-[32px] overflow-hidden border border-white/40 shadow-2xl shadow-[#FF6B6B]/10 bg-white/20 backdrop-blur-sm z-10">
                 <img
                   ref={imageRef}
                   src="/me.gif"
                   alt="Ritik Dutta"
                   className="w-full h-full object-cover"
                 />
+              </div>
 
-                {/* Floating Cards Overlay - Hidden on mobile */}
-                <div className="hero-float-card absolute top-8 right-[-20px] glass-panel p-4 rounded-2xl hidden md:flex items-center gap-3 max-w-[200px] animate-hero-float-slow">
-                  <div className="w-10 h-10 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center text-xl">🚀</div>
-                  <div>
-                    <div className="text-[10px] uppercase tracking-wider text-[#888] font-bold">Currently</div>
-                    <div className="text-xs font-semibold text-[#333]">Building Agents</div>
-                  </div>
+              {/* Floating Cards Overlay - Hidden on mobile, moved outside overflow container */}
+              <div className="hero-float-card absolute top-8 right-[-40px] glass-panel p-4 rounded-2xl hidden md:flex items-center gap-3 max-w-[200px] animate-hero-float-slow z-20">
+                <div className="w-10 h-10 rounded-full bg-[#FF6B6B]/10 flex items-center justify-center text-xl">🚀</div>
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-[#888] font-bold">Currently</div>
+                  <div className="text-xs font-semibold text-[#333]">Building Agents</div>
                 </div>
+              </div>
 
-                <div className="hero-float-card absolute bottom-12 left-[-20px] glass-panel p-4 rounded-2xl hidden md:flex items-center gap-3 max-w-[200px] animate-hero-float-delay">
-                  <div className="w-10 h-10 rounded-full bg-[#FFC65C]/10 flex items-center justify-center text-xl">✨</div>
-                  <div>
-                    <div className="text-[10px] uppercase tracking-wider text-[#888] font-bold">Focus</div>
-                    <div className="text-xs font-semibold text-[#333]">Cinematic UI</div>
-                  </div>
+              <div className="hero-float-card absolute bottom-12 left-[-40px] glass-panel p-4 rounded-2xl hidden md:flex items-center gap-3 max-w-[200px] animate-hero-float-delay z-20">
+                <div className="w-10 h-10 rounded-full bg-[#FFC65C]/10 flex items-center justify-center text-xl">✨</div>
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-[#888] font-bold">Focus</div>
+                  <div className="text-xs font-semibold text-[#333]">Cinematic UI</div>
                 </div>
               </div>
             </div>
@@ -295,7 +358,7 @@ export default function HeroSection() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-bounce">
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 opacity-60 animate-bounce">
         <span className="text-[10px] uppercase tracking-[0.2em] text-[#888]">Scroll</span>
         <div className="w-[1px] h-8 md:h-12 bg-gradient-to-b from-[#FF6B6B] to-transparent" />
       </div>

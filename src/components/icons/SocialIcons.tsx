@@ -4,9 +4,9 @@
  * Linked styles: inherits Tailwind text color utilities from src/index.css.
  * External script: none; pure SVG components sized with utility classes.
  */
-export const GithubIcon = () => (
+export const GithubIcon = ({ className = "" }: { className?: string }) => (
   <svg
-    className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#808080] transition-colors duration-300 relative z-10"
+    className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-colors duration-300 relative z-10 ${className}`}
     fill="currentColor"
     viewBox="0 0 24 24"
   >
@@ -18,9 +18,9 @@ export const GithubIcon = () => (
   </svg>
 );
 
-export const LinkedinIcon = () => (
+export const LinkedinIcon = ({ className = "" }: { className?: string }) => (
   <svg
-    className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#808080] transition-colors duration-300 relative z-10"
+    className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-colors duration-300 relative z-10 ${className}`}
     fill="currentColor"
     viewBox="0 0 24 24"
   >
@@ -28,12 +28,33 @@ export const LinkedinIcon = () => (
   </svg>
 );
 
-export const TwitterIcon = () => (
+export const TwitterIcon = ({ className = "" }: { className?: string }) => (
   <svg
-    className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#808080] transition-colors duration-300 relative z-10"
+    className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-colors duration-300 relative z-10 ${className}`}
     fill="currentColor"
     viewBox="0 0 24 24"
   >
     <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+  </svg>
+);
+
+export const MediumIcon = ({ className = "" }: { className?: string }) => (
+  <svg
+    className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-colors duration-300 relative z-10 ${className}`}
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+  </svg>
+);
+
+export const KaggleIcon = ({ className = "" }: { className?: string }) => (
+  <svg
+    className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-colors duration-300 relative z-10 ${className}`}
+    fill="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path d="M14.63 0H24v24h-9.37V0zM0 0h9.37v24H0V0zm14.63 0H24v24h-9.37V0z" fill="none" />
+    <path d="M18.82 14.84l-5.59-5.34 5.38-5.34h-3.66l-3.56 3.72L9.37 6.06V0H5.18v24h4.19v-8.66l1.97 1.97 3.91 6.69h4.5l-4.94-7.94 4.01-1.22z" />
   </svg>
 );
