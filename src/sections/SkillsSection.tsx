@@ -270,7 +270,7 @@ export default function SkillsSection() {
       <div aria-hidden="true" className="skills-ambient-gradient" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 text-center md:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] md:items-end md:text-left">
+        <div className="grid gap-8 text-center md:grid-cols-2 md:items-start md:text-left">
           <div className="space-y-6">
             <div className="skills-intro-animate inline-flex items-center gap-2 rounded-full border border-[color:var(--border-soft)] bg-[color:var(--surface-card-strong)] px-4 py-2 text-xs uppercase tracking-[0.35em] text-[color:var(--accent-primary)] shadow-sm backdrop-blur-md">
               <span aria-hidden="true">⚡</span>
@@ -411,10 +411,11 @@ export default function SkillsSection() {
         </div>
 
         <div className="mt-16 overflow-hidden rounded-full border border-[color:var(--border-soft)] bg-[color:var(--surface-card)] px-4 py-2 shadow-sm backdrop-blur-lg">
-          <div className="relative flex items-center gap-6">
-            <div className="skills-ticker text-[0.65rem] uppercase tracking-[0.35em] text-[color:var(--accent-primary)]">
+          <div className="relative flex items-center gap-6 overflow-hidden">
+            <div className="flex min-w-full animate-ticker items-center gap-6">
+              {/* Original Items */}
               {tickerItems.map((item) => (
-                <span key={item} className="flex items-center gap-3">
+                <span key={item} className="flex shrink-0 items-center gap-3 text-[0.65rem] uppercase tracking-[0.35em] text-[color:var(--accent-primary)]">
                   {item}
                   <span
                     className="h-1 w-1 rounded-full"
@@ -425,13 +426,9 @@ export default function SkillsSection() {
                   />
                 </span>
               ))}
-            </div>
-            <div
-              className="skills-ticker text-[0.65rem] uppercase tracking-[0.35em] text-[color:var(--accent-primary)]"
-              aria-hidden="true"
-            >
+              {/* Duplicate Items for Seamless Loop */}
               {tickerItems.map((item) => (
-                <span key={`${item}-duplicate`} className="flex items-center gap-3">
+                <span key={`${item}-duplicate`} className="flex shrink-0 items-center gap-3 text-[0.65rem] uppercase tracking-[0.35em] text-[color:var(--accent-primary)]">
                   {item}
                   <span
                     className="h-1 w-1 rounded-full"
