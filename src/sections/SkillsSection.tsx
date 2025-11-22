@@ -40,6 +40,7 @@ const getDepthLabel = (value: number) => {
 
 export default function SkillsSection() {
   const skillsRef = useRef<HTMLDivElement | null>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
   const tickerItems = useMemo(
     () => [
@@ -168,6 +169,7 @@ export default function SkillsSection() {
     []
   );
 
+  // Re-introducing subtle, reliable animations
   useEffect(() => {
     if (!skillsRef.current) return;
 
@@ -175,70 +177,43 @@ export default function SkillsSection() {
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const ctx = gsap.context(() => {
-        gsap.from(".skills-intro-animate", {
-          y: 32,
-          opacity: 0,
-          duration: 0.85,
-          ease: "power3.out",
-          stagger: 0.14,
-          scrollTrigger: {
-            trigger: skillsRef.current,
-            start: "top 82%",
-          },
-        });
-      }, skillsRef);
-
-      return () => ctx.revert();
-    });
-
-    return () => mm.revert();
-  }, []);
-
-  useEffect(() => {
-    if (!skillsRef.current) return;
-
-    const mm = gsap.matchMedia();
-
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const ctx = gsap.context(() => {
-        const cards = gsap.utils.toArray<HTMLElement>(".skill-card-v2");
-
-        gsap.from(cards, {
-          opacity: 0,
-          y: 60,
-          duration: 0.9,
-          ease: "power3.out",
-          stagger: 0.08,
-          scrollTrigger: {
-            trigger: skillsRef.current,
-            start: "top 78%",
-          },
-        });
-
-        cards.forEach((card) => {
-          const tags = card.querySelectorAll<HTMLElement>(".skill-tag");
-
-          if (tags.length) {
-            gsap.fromTo(
-              tags,
-              { opacity: 0, y: 18 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.55,
-                ease: "power2.out",
-                stagger: 0.06,
-                scrollTrigger: {
-                  trigger: card,
-                  start: "top 78%",
-                },
-              }
-            );
+        // Header Animation - Gentle fade up
+        gsap.fromTo(
+          ".skills-intro-animate",
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: skillsRef.current,
+              start: "top 85%", // Trigger earlier to ensure visibility
+              toggleActions: "play none none reverse",
+            },
           }
-        });
-      }, skillsRef);
+        );
 
-      requestAnimationFrame(() => ScrollTrigger.refresh());
+        // Cards Animation - Subtle stagger
+        const cards = gsap.utils.toArray<HTMLElement>(".skill-card-entrance");
+        gsap.fromTo(
+          cards,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            stagger: 0.08,
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }, skillsRef);
 
       return () => ctx.revert();
     });
@@ -250,193 +225,141 @@ export default function SkillsSection() {
     <section
       id="skills"
       ref={skillsRef}
-      className="relative isolate overflow-hidden py-20 sm:py-24 lg:py-28"
+      className="relative isolate overflow-hidden py-24 sm:py-32 bg-white"
       aria-labelledby="skills-heading"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: `
-            linear-gradient(
-              180deg,
-              color-mix(in srgb, var(--surface-section) 92%, transparent) 0%,
-              color-mix(in srgb, var(--surface-page) 85%, transparent) 55%,
-              var(--surface-page) 100%
-            )
-          `,
-        }}
-      />
-      <div aria-hidden="true" className="skills-ambient-gradient" />
+      {/* Subtle Background */}
+      <div className="absolute inset-0 -z-10 opacity-40">
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+      </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 text-center md:grid-cols-2 md:items-start md:text-left">
-          <div className="space-y-6">
-            <div className="skills-intro-animate inline-flex items-center gap-2 rounded-full border border-[color:var(--border-soft)] bg-[color:var(--surface-card-strong)] px-4 py-2 text-xs uppercase tracking-[0.35em] text-[color:var(--accent-primary)] shadow-sm backdrop-blur-md">
-              <span aria-hidden="true">⚡</span>
-              Constantly learning
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Header Section */}
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center mb-16 lg:mb-24">
+          <div className="max-w-2xl">
+            <div className="skills-intro-animate inline-flex items-center gap-2 rounded-full bg-gray-50 px-3 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 mb-6">
+              <span className="flex h-2 w-2 rounded-full bg-[#FF6B6B]" />
+              CONSTANTLY LEARNING
             </div>
-            <div className="space-y-4">
-              <h2
-                id="skills-heading"
-                className="skills-intro-animate text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[color:var(--text-strong)] font-['Playfair Display']"
-              >
-                Skills stitched for playful, production-ready products
-              </h2>
-              <p className="skills-intro-animate text-base sm:text-lg md:text-xl leading-relaxed text-[color:var(--text-muted)] font-['Karla']">
-                From strategy to shipping, here are the systems, interfaces, and experiments I iterate on to keep ideas
-                moving forward.
-              </p>
-            </div>
+            <h2
+              id="skills-heading"
+              className="skills-intro-animate text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl font-serif"
+            >
+              Skills stitched for playful, production-ready products
+            </h2>
+            <p className="skills-intro-animate mt-6 text-lg leading-8 text-gray-600 font-sans">
+              From strategy to shipping, here are the systems, interfaces, and experiments I iterate on to keep ideas moving forward.
+            </p>
           </div>
-          <ul className="skills-intro-animate grid gap-4 rounded-3xl border border-[color:var(--border-soft)] bg-[color:var(--surface-card)] p-6 text-left text-sm text-[color:var(--text-secondary)] font-['Karla'] shadow-sm backdrop-blur-lg">
-            <li className="flex items-center gap-3">
-              <span
-                className="h-2 w-2 rounded-full"
-                aria-hidden="true"
-                style={{
-                  background: "var(--accent-primary)",
-                  boxShadow: "0 0 12px var(--accent-glow)",
-                }}
-              />
-              Cross-functional engineer blending AI systems, creative web, and ops automation.
+
+          <ul className="skills-intro-animate grid gap-6 rounded-2xl border border-gray-100 bg-gray-50/50 p-8 text-sm text-gray-600 shadow-sm backdrop-blur-sm">
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#FF6B6B]" aria-hidden="true" />
+              <span className="leading-relaxed">
+                <strong className="font-semibold text-gray-900">Cross-functional engineer</strong> blending AI systems, creative web, and ops automation.
+              </span>
             </li>
-            <li className="flex items-center gap-3">
-              <span
-                className="h-2 w-2 rounded-full"
-                aria-hidden="true"
-                style={{
-                  background: "var(--accent-primary)",
-                  boxShadow: "0 0 12px var(--accent-glow)",
-                }}
-              />
-              Partnered with product, research, and growth teams to ship resilient experiences.
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#FF6B6B]" aria-hidden="true" />
+              <span className="leading-relaxed">
+                Partnered with <strong className="font-semibold text-gray-900">product, research, and growth teams</strong> to ship resilient experiences.
+              </span>
             </li>
-            <li className="flex items-center gap-3">
-              <span
-                className="h-2 w-2 rounded-full"
-                aria-hidden="true"
-                style={{
-                  background: "var(--accent-primary)",
-                  boxShadow: "0 0 12px var(--accent-glow)",
-                }}
-              />
-              Motion tuned with GSAP and GPU-friendly transforms, respecting prefers-reduced-motion.
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#FF6B6B]" aria-hidden="true" />
+              <span className="leading-relaxed">
+                Motion tuned with <strong className="font-semibold text-gray-900">GSAP and GPU-friendly transforms</strong>, respecting prefers-reduced-motion.
+              </span>
             </li>
           </ul>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {skillsData.map((skill) => (
-            <article
-              key={skill.category}
-              className="skill-card-v2 group flex h-full flex-col gap-6 px-5 py-6 focus-visible:outline-none sm:px-6 sm:py-7 md:px-7 md:py-8"
-              data-tone={skill.tone}
-              tabIndex={0}
-            >
-              <div className="relative z-10 flex flex-1 flex-col gap-6">
-                <div className="flex flex-wrap items-start justify-between gap-4 sm:gap-6">
-                  <div className="flex min-w-0 items-center gap-4">
-                    <span
-                      className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[color:var(--surface-card-strong)] text-2xl shadow-sm text-[color:var(--text-strong)]"
-                      role="img"
-                      aria-label={`${skill.category} icon`}
-                    >
+        {/* Skills Grid */}
+        <div ref={gridRef} className="skills-grid grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {skillsData.map((skill, index) => (
+            <div key={skill.category} className="skill-card-entrance h-full">
+              <div
+                className="animate-float-gentle h-full"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                <article
+                  className="skill-card-pro group flex flex-col p-6 sm:p-8 h-full"
+                >
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="skill-icon-container h-12 w-12 rounded-xl flex items-center justify-center text-2xl shadow-sm">
                       {skill.icon}
-                    </span>
-                    <div className="text-left">
-                      <p className="text-[0.7rem] uppercase tracking-[0.35em] text-[color:var(--text-subtle)]">
-                        {skill.group}
+                    </div>
+                    {!skill.blurred && (
+                      <div className="flex flex-col items-end">
+                        <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold mb-1">Proficiency</span>
+                        <div className="h-1.5 w-24 bg-gray-100 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-[#FF6B6B] rounded-full"
+                            style={{ width: `${skill.proficiency}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mb-4">
+                    <p className="text-xs font-semibold tracking-wider text-gray-400 uppercase mb-2">{skill.group}</p>
+                    <h3 className="text-xl font-bold text-gray-900 font-serif group-hover:text-[#FF6B6B] transition-colors">
+                      {skill.category}
+                    </h3>
+                  </div>
+
+                  {skill.blurred ? (
+                    <div className="flex-1 flex flex-col items-center justify-center py-8 text-center bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                      <p className="text-sm text-gray-500 mb-2">Available for vetted engagements</p>
+                      <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">Private Access Only</span>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="text-sm text-gray-600 leading-relaxed mb-6 flex-1">
+                        {skill.summary}
                       </p>
-                      <h3 className="mt-1 text-lg sm:text-xl font-semibold text-[color:var(--text-strong)] font-['Playfair Display']">
-                        {skill.category}
-                      </h3>
-                    </div>
-                  </div>
-                  {!skill.blurred && (
-                    <span className="inline-flex items-center rounded-full border border-[color:var(--border-soft)] bg-[color:var(--surface-card-strong)] px-3 py-1 text-[0.6rem] uppercase tracking-[0.35em] text-[color:var(--text-subtle)]">
-                      {getDepthLabel(skill.proficiency).toUpperCase()}
-                    </span>
+
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {skill.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="skill-tag-pro px-2.5 py-1 rounded-md text-[11px] font-medium uppercase tracking-wide"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="pt-6 border-t border-gray-100 mt-auto">
+                        {skill.project && (
+                          <a
+                            href={skill.project.href}
+                            target={skill.project.external ? "_blank" : undefined}
+                            rel={skill.project.external ? "noreferrer" : undefined}
+                            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-900 hover:text-[#FF6B6B] transition-colors group/link"
+                          >
+                            {skill.project.label}
+                            <ArrowIcon />
+                          </a>
+                        )}
+                      </div>
+                    </>
                   )}
-                </div>
-
-                {skill.blurred ? (
-                  <div className="flex flex-1 flex-col items-center justify-center gap-4 rounded-3xl border border-[color:var(--border-soft)] bg-[color:var(--surface-card-overlay)] px-6 py-10 text-center text-sm text-[color:var(--text-secondary)] backdrop-blur-xl">
-                    <p>This track is available for vetted engagements.</p>
-                    <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-subtle)]">
-                      Reach out directly for a private walkthrough.
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    <p className="text-sm sm:text-base leading-relaxed text-balance text-[color:var(--text-muted)] font-['Karla']">
-                      {skill.summary}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {skill.tags.map((tag) => (
-                        <span
-                          key={`${skill.category}-${tag}`}
-                          className="skill-tag inline-flex items-center rounded-full px-3 py-1 text-[0.7rem] uppercase tracking-[0.25em]"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="mt-auto flex flex-col gap-3 text-left font-['Karla'] text-sm text-[color:var(--text-muted)]">
-                      <p>{skill.application}</p>
-                      {skill.project && (
-                        <a
-                          href={skill.project.href}
-                          target={skill.project.external ? "_blank" : undefined}
-                          rel={skill.project.external ? "noreferrer" : undefined}
-                          className="group inline-flex w-max items-center gap-2 text-xs uppercase tracking-[0.3em] text-[color:var(--accent-primary)] transition-transform transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--surface-card-strong)]"
-                        >
-                          {skill.project.label}
-                          <ArrowIcon />
-                        </a>
-                      )}
-                      {skill.learning && (
-                        <p className="text-xs uppercase tracking-[0.3em] text-[color:var(--text-subtle)]">
-                          Currently exploring {skill.learning}
-                        </p>
-                      )}
-                    </div>
-                  </>
-                )}
+                </article>
               </div>
-            </article>
+            </div>
           ))}
         </div>
 
-        <div className="mt-16 overflow-hidden rounded-full border border-[color:var(--border-soft)] bg-[color:var(--surface-card)] px-4 py-2 shadow-sm backdrop-blur-lg">
-          <div className="relative flex items-center gap-6 overflow-hidden">
-            <div className="flex min-w-full animate-ticker items-center gap-6">
-              {/* Original Items */}
-              {tickerItems.map((item) => (
-                <span key={item} className="flex shrink-0 items-center gap-3 text-[0.65rem] uppercase tracking-[0.35em] text-[color:var(--accent-primary)]">
+        {/* Ticker Section */}
+        <div className="mt-20 border-t border-gray-100 pt-10">
+          <div className="relative flex overflow-hidden py-4 bg-gray-50 rounded-2xl border border-gray-100">
+            <div className="flex min-w-full animate-ticker items-center gap-12 whitespace-nowrap">
+              {[...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
+                <span key={`${item}-${i}`} className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
+                  <span className="h-1 w-1 rounded-full bg-[#FF6B6B]" />
                   {item}
-                  <span
-                    className="h-1 w-1 rounded-full"
-                    aria-hidden="true"
-                    style={{
-                      background: "color-mix(in srgb, var(--accent-primary) 55%, transparent)",
-                    }}
-                  />
-                </span>
-              ))}
-              {/* Duplicate Items for Seamless Loop */}
-              {tickerItems.map((item) => (
-                <span key={`${item}-duplicate`} className="flex shrink-0 items-center gap-3 text-[0.65rem] uppercase tracking-[0.35em] text-[color:var(--accent-primary)]">
-                  {item}
-                  <span
-                    className="h-1 w-1 rounded-full"
-                    aria-hidden="true"
-                    style={{
-                      background: "color-mix(in srgb, var(--accent-primary) 55%, transparent)",
-                    }}
-                  />
                 </span>
               ))}
             </div>
