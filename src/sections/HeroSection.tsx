@@ -332,6 +332,7 @@ export default function HeroSection() {
                   src="/me.gif"
                   alt="Ritik Dutta"
                   className="w-full h-full object-cover"
+                  fetchPriority="high"
                 />
               </div>
 
